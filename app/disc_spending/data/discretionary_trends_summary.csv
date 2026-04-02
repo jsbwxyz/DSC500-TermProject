@@ -1,0 +1,26 @@
+Category,Keyword,Avg Interest,Rank in Cat
+Personal Care,perfume,45.5,1
+Personal Care,skincare,12.2,2
+Personal Care,hair care,2.6,3
+Personal Care,electric toothbrush,1.5,4
+Personal Care,massage gun,1.2,5
+Food Away From Home,brunch,51.4,1
+Food Away From Home,food delivery,16.6,2
+Food Away From Home,omakase,3.9,3
+Food Away From Home,fast casual dining,0.0,4
+Food Away From Home,meal kit delivery,0.0,5
+Education,MBA,68.1,1
+Education,online course,30.1,2
+Education,tutoring,22.7,3
+Education,language learning app,1.6,4
+Education,coding bootcamp,1.0,5
+Apparel,sneakers,75.4,1
+Apparel,workwear,2.8,2
+Apparel,vintage clothing,2.2,3
+Apparel,athleisure,1.0,4
+Apparel,luxury handbag,0.1,5
+Recreation,kayak,59.1,1
+Recreation,hiking boots,8.8,2
+Recreation,yoga mat,6.8,3
+Recreation,fitness tracker,2.8,4
+Recreation,camping gear,2.0,5

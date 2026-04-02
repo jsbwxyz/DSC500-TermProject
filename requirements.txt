@@ -1,0 +1,18 @@
+# Web scraping and automation
+selenium
+webdriver-manager
+requests
+beautifulsoup4
+lxml
+
+# Database
+mysql-connector-python
+
+# Environment configuration
+python-dotenv
+
+# Data processing and analysis
+pandas
+pytrends
+python-dateutil
+tabulate
