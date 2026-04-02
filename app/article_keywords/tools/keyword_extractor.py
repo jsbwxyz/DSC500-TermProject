@@ -92,6 +92,8 @@ def extract_keywords(text, num_keywords=10):
         
         # Get top keywords
         most_common = freq_dist.most_common(num_keywords)
+
+        # ^^ this piece would possibly be improved to more than just "most common"
         
         if not most_common:
             return []
