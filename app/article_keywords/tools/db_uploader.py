@@ -77,8 +77,9 @@ class DatabaseUploader:
             return None
 
     def insert_article_with_keywords(self, source_url: str, title: str, description: str,
-                                     published_date: str, keywords: list, frequency: int = 1):
-        """Insert article and link it to keywords"""
+                                     published_date: str, keywords: list, frequency: int = 1,
+                                     entity_sentiment: list = None):
+        """Insert article and link it to keywords and entity sentiment"""
         if not self.connection:
             print("No database connection. Call connect() first.")
             return False
@@ -126,6 +127,12 @@ class DatabaseUploader:
             print(f"Successfully inserted article with {inserted_count} keywords: {title[:50]}...")
             if date_only:
                 print(f"  Published: {date_only}")
+
+            # Insert entity sentiment if present
+            if entity_sentiment:
+                sentiment_count = self.insert_entity_sentiment(article_id, entity_sentiment)
+                print(f"  Entity sentiment: {sentiment_count} entities written")
+
             return True
         except Error as e:
             print(f"Error inserting article: {e}")
@@ -158,7 +165,8 @@ class DatabaseUploader:
                     description=article.get('description', ''),
                     published_date=article.get('published_date'),
                     keywords=keywords,
-                    frequency=1
+                    frequency=1,
+                    entity_sentiment=article.get('entity_sentiment', [])
                 )
 
                 if success:
@@ -245,6 +253,132 @@ class DatabaseUploader:
         print("=" * 70)
 
         return {'is_synced': len(missing_in_db) == 0, 'missing_in_db': missing_in_db}
+
+    def insert_entity_sentiment(self, article_id: int, entity_sentiment: list):
+        """
+        Insert entity sentiment results for an article.
+
+        Writes to ENTITIES and ARTICLE_ENTITY_SENTIMENT tables.
+        Skips duplicates silently (same article/entity pair).
+
+        Args:
+            article_id (int): ID of the parent article in ARTICLES table.
+            entity_sentiment (list): Output from sentiment_analyzer.py —
+                list of dicts with keys: entity, entity_type, sentiment,
+                confidence, mentions.
+
+        Returns:
+            int: Number of entity sentiment rows inserted.
+        """
+        if not self.connection or not entity_sentiment:
+            return 0
+
+        inserted = 0
+        cursor = self.connection.cursor(dictionary=True)
+
+        for entry in entity_sentiment:
+            entity_text = entry.get('entity', '').strip()
+            if not entity_text:
+                continue
+
+            # Get or create entity in ENTITIES table
+            cursor.execute(
+                "SELECT ENTITY_ID FROM ENTITIES WHERE ENTITY_TEXT = %s",
+                (entity_text,)
+            )
+            result = cursor.fetchone()
+
+            if result:
+                entity_id = result['ENTITY_ID']
+            else:
+                cursor.execute(
+                    "INSERT INTO ENTITIES (ENTITY_TEXT, ENTITY_TYPE) VALUES (%s, %s)",
+                    (entity_text, entry.get('entity_type', 'UNKNOWN'))
+                )
+                entity_id = cursor.lastrowid
+
+            try:
+                cursor.execute("""
+                    INSERT INTO ARTICLE_ENTITY_SENTIMENT
+                        (ARTICLE_ID, ENTITY_ID, SENTIMENT, CONFIDENCE, MENTIONS)
+                    VALUES (%s, %s, %s, %s, %s)
+                """, (
+                    article_id,
+                    entity_id,
+                    entry.get('sentiment', 'neutral'),
+                    entry.get('confidence', 0.0),
+                    entry.get('mentions', 1)
+                ))
+                inserted += 1
+            except IntegrityError:
+                continue
+
+        self.connection.commit()
+        cursor.close()
+        return inserted
+
+    def insert_entity_sentiment(self, article_id: int, entity_sentiment: list):
+        """
+        Insert entity sentiment results for an article.
+
+        Writes to ENTITIES and ARTICLE_ENTITY_SENTIMENT tables.
+        Skips duplicates silently (same article/entity pair).
+
+        Args:
+            article_id (int): ID of the parent article in ARTICLES table.
+            entity_sentiment (list): Output from sentiment_analyzer.py —
+                list of dicts with keys: entity, entity_type, sentiment,
+                confidence, mentions.
+
+        Returns:
+            int: Number of entity sentiment rows inserted.
+        """
+        if not self.connection or not entity_sentiment:
+            return 0
+
+        inserted = 0
+        cursor = self.connection.cursor(dictionary=True)
+
+        for entry in entity_sentiment:
+            entity_text = entry.get('entity', '').strip()
+            if not entity_text:
+                continue
+
+            # Get or create entity in ENTITIES table
+            cursor.execute(
+                "SELECT ENTITY_ID FROM ENTITIES WHERE ENTITY_TEXT = %s",
+                (entity_text,)
+            )
+            result = cursor.fetchone()
+
+            if result:
+                entity_id = result['ENTITY_ID']
+            else:
+                cursor.execute(
+                    "INSERT INTO ENTITIES (ENTITY_TEXT, ENTITY_TYPE) VALUES (%s, %s)",
+                    (entity_text, entry.get('entity_type', 'UNKNOWN'))
+                )
+                entity_id = cursor.lastrowid
+
+            try:
+                cursor.execute("""
+                    INSERT INTO ARTICLE_ENTITY_SENTIMENT
+                        (ARTICLE_ID, ENTITY_ID, SENTIMENT, CONFIDENCE, MENTIONS)
+                    VALUES (%s, %s, %s, %s, %s)
+                """, (
+                    article_id,
+                    entity_id,
+                    entry.get('sentiment', 'neutral'),
+                    entry.get('confidence', 0.0),
+                    entry.get('mentions', 1)
+                ))
+                inserted += 1
+            except IntegrityError:
+                continue
+
+        self.connection.commit()
+        cursor.close()
+        return inserted
 
     def close(self):
         """Close the database connection"""
