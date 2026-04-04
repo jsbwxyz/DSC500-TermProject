@@ -16,6 +16,8 @@ warnings.filterwarnings("ignore")
 
 # ---------------------------------------------------------------------------
 # Model setup
+# The model needs preparation loading the models
+#   and weights needed
 # ---------------------------------------------------------------------------
 
 def ensure_models():
@@ -76,6 +78,8 @@ _ENTITY_TYPES = {"ORG", "PERSON", "PRODUCT", "GPE", "NORP"}
 
 # ---------------------------------------------------------------------------
 # Core analysis
+#   A RoBERTa algorithm is ran on each sentence
+#       then it is tokenized
 # ---------------------------------------------------------------------------
 
 def analyze_entity_sentiment(text, top_n=10):
@@ -99,18 +103,24 @@ def analyze_entity_sentiment(text, top_n=10):
                 'mentions':        int,   # sentences entity appears in
             }
     """
+    import nltk
     import spacy
     from transformers import pipeline as hf_pipeline
     from nltk.tokenize import sent_tokenize
 
+    nltk.download("punkt_tab", quiet=True)
+
     if not text:
         return []
 
-    # Flatten paragraph list if needed
+    # if the instance is a paragraph list,
+    #   flatten it
     if isinstance(text, list):
         text = " ".join(text)
 
-    # Load models
+    # core spacey models are loaded
+    #    primarily in English
+    #    more languages can be added in the future
     nlp = spacy.load("en_core_web_md")
     classifier = hf_pipeline(
         "sentiment-analysis",
@@ -123,6 +133,7 @@ def analyze_entity_sentiment(text, top_n=10):
     doc = nlp(text)
     entity_map = {}  # canonical_name → {'type': ..., 'variants': set()}
 
+    # ensure labels are not in the known entity types
     for ent in doc.ents:
         if ent.label_ not in _ENTITY_TYPES:
             continue
