@@ -16,3 +16,9 @@ pandas
 pytrends
 python-dateutil
 tabulate
+
+# NLP and sentiment analysis
+nltk
+spacy
+transformers
+torch
