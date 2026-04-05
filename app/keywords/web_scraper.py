@@ -15,14 +15,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from app.shared_utils import parse_publish_date, create_chrome_options, get_data_dir
 from tools.keyword_extractor import add_keywords_to_articles
+from tools.sentiment_analyzer import add_sentiment_to_articles
 from tools.db_uploader import DatabaseUploader
 
 # List of HTML page URLs to scrape
 HTML_URLS = [
     "https://www.housebeautiful.com/room-decorating/",
     "https://www.apartmenttherapy.com/collection/ideas-inspiration/",
-    "https://www.remodelista.com/get-inspired"
-    # "https://www.elledecor.com/home-remodeling-renovating/"
+    "https://www.remodelista.com/get-inspired",
+    " https://www.elledecor.com/home-remodeling-renovating/"
     # Add more HTML page URLs here
 ]
 
@@ -272,9 +273,14 @@ def main():
     print("\n" + "-" * 70)
     print("Extracting keywords...")
     add_keywords_to_articles(articles_to_scrape, num_keywords=15, verbose=True)
-    
+
+    # Step 5.5: Analyze entity sentiment
+    print("\n" + "-" * 70)
+    print("Analyzing entity sentiment...")
+    add_sentiment_to_articles(articles_to_scrape, top_n=10, verbose=True)
+
     # Step 6: Save results to JSON
-    data_dir = get_data_dir('article_keywords')
+    data_dir = get_data_dir('keywords')
     output_file = data_dir / f"html_articles_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -287,11 +293,13 @@ def main():
     total_paragraphs = sum(len(a['paragraphs']) for a in articles_to_scrape)
     successful_content = sum(1 for a in articles_to_scrape if len(a['paragraphs']) > 0)
     successful_keywords = sum(1 for a in articles_to_scrape if a.get('keywords'))
+    successful_sentiment = sum(1 for a in articles_to_scrape if a.get('entity_sentiment'))
     articles_with_dates = sum(1 for a in articles_to_scrape if a.get('published_date'))
 
     print(f"  - {successful_content} articles with content")
     print(f"  - {total_paragraphs} total paragraphs extracted")
     print(f"  - {successful_keywords} articles with keywords")
+    print(f"  - {successful_sentiment} articles with entity sentiment")
     print(f"  - {articles_with_dates} articles with publish dates")
     print(f"  - {len(skipped_by_title)} articles skipped (already in database)")
     print(f"  - Saved to: {output_file}")
