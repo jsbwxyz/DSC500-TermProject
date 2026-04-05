@@ -158,7 +158,7 @@ def main():
     add_keywords_to_articles(all_articles, num_keywords=15, verbose=True)
     
     # Step 5: Save results to JSON
-    data_dir = get_data_dir('article_keywords')
+    data_dir = get_data_dir('keywords')
     output_file = data_dir / f"rss_articles_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
     with open(output_file, 'w', encoding='utf-8') as f:

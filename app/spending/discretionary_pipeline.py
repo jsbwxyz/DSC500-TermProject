@@ -280,7 +280,7 @@ def main():
         ))
 
     if EXPORT_CSV:
-        monthly.to_csv("app/disc_spending/data/discretionary_bls_monthly.csv", index=False)
+        monthly.to_csv("app/spending/data/discretionary_bls_monthly.csv", index=False)
         print("\nSaved: discretionary_bls_monthly.csv")
 
     # Summary
@@ -289,7 +289,7 @@ def main():
     print(tabulate(bls_summary, headers="keys", tablefmt="simple", showindex=False, floatfmt=".2f"))
 
     if EXPORT_CSV:
-        bls_summary.to_csv("app/disc_spending/data/discretionary_bls_summary.csv", index=False)
+        bls_summary.to_csv("app/spending/data/discretionary_bls_summary.csv", index=False)
         print("Saved: discretionary_bls_summary.csv")
 
     # --- Google Trends (top N by YoY) ---
@@ -312,7 +312,7 @@ def main():
         print(tabulate(top3, headers="keys", tablefmt="simple", showindex=False, floatfmt=".1f"))
 
         if EXPORT_CSV:
-            trends_df.to_csv("app/disc_spending/data/discretionary_trends_summary.csv", index=False)
+            trends_df.to_csv("app/spending/data/discretionary_trends_summary.csv", index=False)
             print("Saved: discretionary_trends_summary.csv")
     else:
         print("[Trends] No data returned.")

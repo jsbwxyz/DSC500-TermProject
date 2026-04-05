@@ -23,7 +23,7 @@ HTML_URLS = [
     "https://www.housebeautiful.com/room-decorating/",
     "https://www.apartmenttherapy.com/collection/ideas-inspiration/",
     "https://www.remodelista.com/get-inspired",
-    "https://www.elledecor.com/home-remodeling-renovating/"
+    " https://www.elledecor.com/home-remodeling-renovating/"
     # Add more HTML page URLs here
 ]
 
@@ -280,7 +280,7 @@ def main():
     add_sentiment_to_articles(articles_to_scrape, top_n=10, verbose=True)
 
     # Step 6: Save results to JSON
-    data_dir = get_data_dir('article_keywords')
+    data_dir = get_data_dir('keywords')
     output_file = data_dir / f"html_articles_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
     with open(output_file, 'w', encoding='utf-8') as f:

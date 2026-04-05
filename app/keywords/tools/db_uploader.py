@@ -189,7 +189,7 @@ class DatabaseUploader:
 
         # Use path_utils if no data_dir provided
         if data_dir is None:
-            data_path = get_data_dir('article_keywords')
+            data_path = get_data_dir('keywords')
         else:
             data_path = Path(data_dir)
 
@@ -398,7 +398,7 @@ def main():
         if not sync_status['is_synced']:
             proceed = input(f"\nUpload {len(sync_status['missing_in_db'])} missing articles? (y/n): ").strip().lower()
             if proceed == 'y':
-                data_path = get_data_dir('article_keywords')
+                data_path = get_data_dir('keywords')
                 for json_file in data_path.glob("*.json"):
                     print(f"\nProcessing: {json_file.name}")
                     uploader.upload_from_json(str(json_file))

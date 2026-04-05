@@ -21,7 +21,7 @@ def check_sync(conn):
     print("Checking product pricing sync status...")
     print("=" * 70)
 
-    data_dir = get_data_dir('product_pricing')
+    data_dir = get_data_dir('pricing')
     file_path = str(data_dir / 'all_prices.json')
 
     if not os.path.exists(file_path):
@@ -75,7 +75,7 @@ def check_sync(conn):
 def upload_prices(conn):
     """Upload price data from JSON to database"""
     cursor = conn.cursor()
-    data_dir = get_data_dir('product_pricing')
+    data_dir = get_data_dir('pricing')
     file_path = str(data_dir / 'all_prices.json')
 
     with open(file_path, 'r') as f:

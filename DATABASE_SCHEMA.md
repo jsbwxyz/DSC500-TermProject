@@ -248,9 +248,9 @@ python db_uploader.py upload-trends
 
 ## Data Flow
 
-1. **Article Keywords**: JSON files in `article_keywords/data/` → ARTICLES, KEYWORDS, ARTICLE_KEYWORDS tables
-2. **Product Pricing**: JSON file at `product_pricing/data/all_prices.json` → PRICE_HISTORY table
-3. **Discretionary Spending**: CSV files in `disc_spending/data/` → BLS_CPI and TRENDS_DATA tables
+1. **Article Keywords**: JSON files in `keywords/data/` → ARTICLES, KEYWORDS, ARTICLE_KEYWORDS tables
+2. **Product Pricing**: JSON file at `pricing/data/all_prices.json` → PRICE_HISTORY table
+3. **Discretionary Spending**: CSV files in `spending/data/` → BLS_CPI and TRENDS_DATA tables
    - `discretionary_bls_summary.csv` - Latest month summary (8 categories)
    - `discretionary_bls_monthly.csv` - 12 months historical (96 rows)
    - `discretionary_trends_summary.csv` - Google Trends product keywords
