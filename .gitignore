@@ -19,3 +19,4 @@ venv/
 .DS_Store
 Thumbs.db
 /app/keywords/data
+/app/spending/data
