@@ -1,4 +1,4 @@
-# main.py
+# run.py
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -116,7 +116,7 @@ def close_driver():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        # User specified an ASIN directly: python3 main.py B08573DQ39
+        # User specified an ASIN directly: python3 run.py B08573DQ39
         asin = sys.argv[1].strip().upper()
         price = run_scrape_single(asin)
         if price:
@@ -124,5 +124,5 @@ if __name__ == "__main__":
         close_driver()
     else:
         # No argument — run through timing scheduler as normal
-        from timing import main as timing_main
+        from tools.timing import main as timing_main
         timing_main()

@@ -1,9 +1,15 @@
 # timing.py
+import sys
+from pathlib import Path
+
+# Add parent directory to path to import run module
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import random
 import time
 import threading
 from datetime import datetime, timedelta
-from main import run_scrape_single  # Calls single-ASIN scrape
+from run import run_scrape_single  # Calls single-ASIN scrape
 
 # Time window ranges
 WINDOWS = {
@@ -47,7 +53,7 @@ def schedule_asin_run(window_name, start_hour, end_hour, asin):
     threading.Thread(target=run, daemon=True).start()
 
 def main():
-    from main import asins  # Imported here to prevent circular import
+    from run import asins  # Imported here to prevent circular import
     for window_name, (start_hour, end_hour) in WINDOWS.items():
         for asin in set(asins):  # Deduplicate
             schedule_asin_run(window_name, start_hour, end_hour, asin)
