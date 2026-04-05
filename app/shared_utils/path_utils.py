@@ -23,7 +23,7 @@ def get_data_dir(module_name: str) -> Path:
     Get the data directory for a specific module
 
     Args:
-        module_name: Name of the module (e.g., 'article_keywords', 'product_pricing', 'disc_spending')
+        module_name: Name of the module (e.g., 'keywords', 'pricing', 'spending')
 
     Returns:
         Path: Absolute path to the module's data directory
@@ -42,7 +42,7 @@ def get_module_dir(module_name: str) -> Path:
     Get the directory for a specific module
 
     Args:
-        module_name: Name of the module (e.g., 'article_keywords', 'product_pricing', 'disc_spending')
+        module_name: Name of the module (e.g., 'keywords', 'pricing', 'spending')
 
     Returns:
         Path: Absolute path to the module directory

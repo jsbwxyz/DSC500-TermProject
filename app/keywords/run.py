@@ -20,7 +20,7 @@ from app.shared_utils import create_chrome_options, get_standard_headers, get_da
 import web_scraper
 import rss_scraper
 
-DATA_DIR = get_data_dir('article_keywords')
+DATA_DIR = get_data_dir('keywords')
 
 def load_existing_articles():
     """Load all existing articles from JSON files in /data directory"""

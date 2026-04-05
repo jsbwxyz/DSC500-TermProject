@@ -15,7 +15,7 @@ mtb_data_engine/
 ├── requirements.txt            # Python dependencies
 ├── README.md
 │
-├── article_keywords/           # Article keyword extraction
+├── keywords/                   # Article keyword extraction
 │   ├── data/                   # JSON output files
 │   ├── tools/
 │   │   ├── keyword_extractor.py
@@ -25,13 +25,13 @@ mtb_data_engine/
 │   ├── run.py                  # Manual scraper
 │   └── auto.py                 # Automated 12-hour scraper
 │
-├── product_pricing/            # Amazon price tracking
+├── pricing/                    # Amazon price tracking
 │   ├── data/                   # JSON output files (all_prices.json)
 │   ├── main.py                 # Price scraper
 │   ├── timing.py               # Scheduling
 │   └── upload_db.py            # Pricing upload script
 │
-└── disc_spending/              # Discretionary spending intelligence
+└── spending/                   # Discretionary spending intelligence
     ├── data/                   # CSV output files
     ├── discretionary_pipeline.py
     └── upload_db.py            # Spending upload script
@@ -79,29 +79,29 @@ python db_uploader.py upload-disc       # Upload discretionary spending (interac
 
 **Option 2: Run individual upload scripts directly**:
 ```bash
-cd article_keywords/tools && python db_uploader.py
-cd product_pricing && python upload_db.py
-cd disc_spending && python upload_db.py
+cd keywords/tools && python db_uploader.py
+cd pricing && python upload_db.py
+cd spending && python upload_db.py
 ```
 
 ### Data Collection
 
 **Collect article keywords**:
 ```bash
-cd article_keywords
+cd keywords
 python run.py
 ```
 
 **Collect product prices**:
 ```bash
-cd product_pricing
+cd pricing
 python main.py B08573DQ39  # Single ASIN
 python timing.py           # Scheduled collection
 ```
 
 **Collect discretionary spending data**:
 ```bash
-cd disc_spending
+cd spending
 python discretionary_pipeline.py
 ```
 
@@ -111,19 +111,19 @@ python discretionary_pipeline.py
 - RSS feeds from design/home magazines
 - HTML page scraping
 - Keyword extraction using AI/NLP
-- Output: `article_keywords/data/*.json`
+- Output: `keywords/data/*.json`
 
 ### Product Pricing
 - Amazon product price tracking via Selenium
 - Multiple ASINs monitored
 - Price history tracking
-- Output: `product_pricing/data/all_prices.json`
+- Output: `pricing/data/all_prices.json`
 
 ### Discretionary Spending
 - BLS CPI data for discretionary categories
 - Google Trends for product-level insights
 - Demand signal analysis
-- Output: `disc_spending/data/*.csv`
+- Output: `spending/data/*.csv`
   - `discretionary_bls_summary.csv` - Latest month summary by category
   - `discretionary_bls_monthly.csv` - 12 months of historical data
   - `discretionary_trends_summary.csv` - Google Trends product interest

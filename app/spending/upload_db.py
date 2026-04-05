@@ -20,7 +20,7 @@ def check_bls_sync(conn, file_type='summary'):
     print(f"Checking BLS CPI {file_type} sync status...")
     print("=" * 70)
 
-    data_dir = get_data_dir('disc_spending')
+    data_dir = get_data_dir('spending')
     if file_type == 'summary':
         file_path = data_dir / 'discretionary_bls_summary.csv'
         date_col = 'As Of'
@@ -79,7 +79,7 @@ def check_trends_sync(conn):
     print("Checking Google Trends sync status...")
     print("=" * 70)
 
-    data_dir = get_data_dir('disc_spending')
+    data_dir = get_data_dir('spending')
     file_path = str(data_dir / 'discretionary_trends_summary.csv')
 
     if not os.path.exists(file_path):
@@ -127,7 +127,7 @@ def check_trends_sync(conn):
 
 def upload_bls_data(conn, file_type='summary'):
     """Upload BLS CPI data from CSV to database"""
-    data_dir = get_data_dir('disc_spending')
+    data_dir = get_data_dir('spending')
     if file_type == 'summary':
         file_path = str(data_dir / 'discretionary_bls_summary.csv')
         date_col = 'As Of'
@@ -189,7 +189,7 @@ def upload_bls_data(conn, file_type='summary'):
 
 def upload_trends_data(conn):
     """Upload Google Trends data from CSV to database"""
-    data_dir = get_data_dir('disc_spending')
+    data_dir = get_data_dir('spending')
     file_path = str(data_dir / 'discretionary_trends_summary.csv')
 
     df = pd.read_csv(file_path)
