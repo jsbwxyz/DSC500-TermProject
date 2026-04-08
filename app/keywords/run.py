@@ -9,12 +9,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import requests
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
-from app.shared_utils import create_chrome_options, get_standard_headers, get_data_dir
+from app.shared_utils import get_standard_headers, get_data_dir
 
 # Import scraper modules
 import web_scraper
@@ -48,41 +44,11 @@ def get_article_links_from_html_source(page_url):
     """Get article links from HTML page without full scraping"""
     print(f"  Checking: {page_url}")
 
-    chrome_options = create_chrome_options()
+    # Use web_scraper's function to get article data, then extract just the links
+    articles = web_scraper.get_article_links_from_page(page_url)
+    links = {article['link'] for article in articles}
 
-    try:
-        driver = webdriver.Chrome(options=chrome_options)
-        driver.get(page_url)
-
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.TAG_NAME, "a"))
-        )
-        time.sleep(3)
-
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        driver.quit()
-
-        from urllib.parse import urlparse
-        parsed = urlparse(page_url)
-        base_domain = f"{parsed.scheme}://{parsed.netloc}"
-        base_path = parsed.path.rstrip('/')
-
-        links = set()
-        for a_tag in soup.find_all('a', href=True):
-            href = a_tag['href']
-            if base_path in href and href.count('/') >= 4:
-                if href.startswith('http'):
-                    links.add(href)
-                elif href.startswith('/'):
-                    links.add(base_domain + href)
-
-        return links
-
-    except Exception as e:
-        print(f"    Error: {e}")
-        if 'driver' in locals():
-            driver.quit()
-        return set()
+    return links
 
 def get_article_links_from_rss_source(rss_url):
     """Get article links from RSS feed without full scraping"""
