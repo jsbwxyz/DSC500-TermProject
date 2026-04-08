@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-# Add project root to path to import app modules
+# adding project root to path to import app modules
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import requests
@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 import json
 import time
 from datetime import datetime
+
+# imports and preproecessing
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -18,7 +20,8 @@ from tools.keyword_extractor import add_keywords_to_articles
 from tools.sentiment_analyzer import add_sentiment_to_articles
 from tools.db_uploader import DatabaseUploader
 
-# List of HTML page URLs to scrape
+# list of HTML page URLs to scrape
+#  *+* Be mindful of HTML layout before scraping *+*
 HTML_URLS = [
     "https://www.housebeautiful.com/room-decorating/",
     "https://www.apartmenttherapy.com/collection/ideas-inspiration/",
@@ -153,25 +156,29 @@ def scrape_paragraphs_from_article(article_url, article_data):
     chrome_options = create_chrome_options()
 
     try:
+        # applying web driver with Chrome options for 
+        #   maximum compatability
         driver = webdriver.Chrome(options=chrome_options)
         driver.get(article_url)
         
-        # Wait for content to load
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 10).until( # wait for content to load
             EC.presence_of_element_located((By.TAG_NAME, "p"))
         )
         time.sleep(2)
         
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         driver.quit()
+        # close out driver after it has finished
         
         # Extract publish date
         publish_date = extract_publish_date_from_html(soup)
         if publish_date:
-            article_data['published_date'] = publish_date
+            article_data['published_date'] = publish_date # look for published date tag
             print(f"    Published: {publish_date}")
         
         # Find all <p> tags
+
+        # use .find_all() to look for any p tags within the 
         p_tags = soup.find_all('p')
         
         # Extract text from paragraphs
@@ -182,13 +189,13 @@ def scrape_paragraphs_from_article(article_url, article_data):
             if text and len(text) > 20 and 'enable JavaScript' not in text:
                 paragraphs.append(text)
         
-        print(f"    Found {len(paragraphs)} paragraphs")
+        print(f"    Found {len(paragraphs)} paragraphs") # return the # of paragraphs found
         return paragraphs
         
     except Exception as e:
         print(f"    Error: {str(e)}")
         if 'driver' in locals():
-            driver.quit()
+            driver.quit() # close out driver after it has finished
         return []
 
 def main():
@@ -214,9 +221,9 @@ def main():
         return
 
     # Step 2: Check database for existing articles
-    print(f"\n{'='*70}")
+    print(f"\n{'*+'*70}")
     print("Checking database for existing articles...")
-    print(f"{'='*70}")
+    print(f"{'*+*'*70}")
 
     uploader = DatabaseUploader()
     existing_articles = set()
@@ -226,7 +233,7 @@ def main():
         print(f"Found {len(existing_articles)} existing articles in database")
         uploader.close()
     else:
-        print("Warning: Could not connect to database. Proceeding without duplicate checking.")
+        print("WARNING: Could not connect to database. Proceeding without duplicate checking.")
 
     # Filter out articles that already exist (matching by title only, since we don't have published_date yet)
     # We'll check the full title+date match after scraping the publish date
