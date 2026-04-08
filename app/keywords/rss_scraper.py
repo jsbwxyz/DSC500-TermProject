@@ -14,7 +14,7 @@ from tools.keyword_extractor import add_keywords_to_articles
 
 # List of RSS feed URLs
 RSS_URLS = [
-    "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000116",
+    "apartmenttherapy.com/main.rss"
     # Add more RSS URLs here
 ]
 
