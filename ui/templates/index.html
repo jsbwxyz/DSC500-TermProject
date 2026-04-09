@@ -52,58 +52,70 @@
 
             <h2 class="results-title" id="resultsTitle">Results for: <span id="searchedTerm"></span></h2>
 
-            <!-- What They Say - Sentiment Word Cloud -->
-            <section class="result-section">
-                <h3 class="section-title">What They Say</h3>
-                <div class="wordcloud-container">
-                    <canvas id="sentimentCloud" width="600" height="400"></canvas>
-                </div>
-                <p class="section-desc">Word cloud based on category chosen</p>
-            </section>
+            <!-- Two Column Grid Layout -->
+            <div class="results-grid">
+                <!-- Left Column -->
+                <div class="results-column-left">
+                    <!-- What They Say - Sentiment Word Cloud -->
+                    <section class="result-section">
+                        <h3 class="section-title">What They Say</h3>
+                        <div class="chart-container">
+                            <img id="sentimentCloud" class="chart-image" alt="Sentiment Word Cloud" />
+                        </div>
+                        <p class="section-desc">Word cloud based on category chosen</p>
+                    </section>
 
-            <!-- Where It's Going - Price Trends -->
-            <section class="result-section">
-                <h3 class="section-title">Where It's Going</h3>
-                <div class="chart-container">
-                    <canvas id="priceChart" width="800" height="400"></canvas>
+                    <!-- What's Happening - CPI Data -->
+                    <section class="result-section">
+                        <h3 class="section-title">What's Happening</h3>
+                        <div class="chart-grid">
+                            <div class="chart-item">
+                                <img id="cpiChart" class="chart-image" alt="CPI Data Chart" />
+                            </div>
+                            <div class="chart-item">
+                                <img id="trendsChart" class="chart-image" alt="Spending Trends Chart" />
+                            </div>
+                        </div>
+                        <p class="section-desc">CPI data and market indicators</p>
+                    </section>
                 </div>
-                <p class="section-desc">Price trend analysis over time</p>
-            </section>
 
-            <!-- What's Happening - CPI Data -->
-            <section class="result-section">
-                <h3 class="section-title">What's Happening</h3>
-                <div class="chart-grid">
-                    <div class="chart-item">
-                        <canvas id="cpiChart" width="400" height="300"></canvas>
-                    </div>
-                    <div class="chart-item">
-                        <canvas id="trendsChart" width="400" height="300"></canvas>
-                    </div>
-                </div>
-                <p class="section-desc">CPI data and market indicators</p>
-            </section>
+                <!-- Right Column -->
+                <div class="results-column-right">
+                    <!-- Where It's Going - Price Trends -->
+                    <section class="result-section">
+                        <h3 class="section-title">Where It's Going</h3>
+                        <div class="chart-container">
+                            <img id="priceChart" class="chart-image" alt="Price Trend Chart" />
+                        </div>
+                        <p class="section-desc">Price trend analysis over time</p>
+                    </section>
 
-            <!-- How We Know - Data Table -->
-            <section class="result-section">
-                <h3 class="section-title">How We Know "What They Say"</h3>
-                <div class="table-wrapper">
-                    <table class="results-table" id="resultsTable">
-                        <thead>
-                            <tr>
-                                <th>VAL</th>
-                                <th>Keyword</th>
-                                <th>Product</th>
-                                <th>Sentiment</th>
-                                <th>Confidence</th>
-                            </tr>
-                        </thead>
-                        <tbody id="resultsTableBody">
-                            <!-- Populated via JS -->
-                        </tbody>
-                    </table>
+                    <!-- Divider -->
+                    <div class="column-divider"></div>
+
+                    <!-- How We Know - Data Table -->
+                    <section class="result-section">
+                        <h3 class="section-title">How We Know "What They Say"</h3>
+                        <div class="table-wrapper">
+                            <table class="results-table" id="resultsTable">
+                                <thead>
+                                    <tr>
+                                        <th>VAL</th>
+                                        <th>Keyword</th>
+                                        <th>Product</th>
+                                        <th>Sentiment</th>
+                                        <th>Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultsTableBody">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
-            </section>
+            </div>
         </div>
     </section>
 

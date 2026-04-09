@@ -11,7 +11,7 @@ import io
 import base64
 
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import mysql.connector
@@ -19,6 +19,8 @@ from wordcloud import WordCloud
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from matplotlib.patches import Rectangle
 import numpy as np
 
 # Add parent directory to path to import shared_utils
@@ -52,6 +54,240 @@ def get_db_connection():
     except Exception as e:
         print(f"Database connection error: {e}")
         return None
+
+def generate_sentiment_wordcloud(words_data):
+    """Generate sentiment word cloud using matplotlib"""
+    if not words_data:
+        # Return empty image
+        fig, ax = plt.subplots(figsize=(10, 6), facecolor='#fafaf8')
+        ax.text(0.5, 0.5, 'No sentiment data available',
+                ha='center', va='center', fontsize=16, color='#999')
+        ax.axis('off')
+    else:
+        # Create word frequency dict
+        word_freq = {}
+        for item in words_data:
+            text = item.get('text', '')
+            weight = item.get('weight', 1)
+            word_freq[text] = weight
+
+        # Generate word cloud
+        wc = WordCloud(
+            width=800,
+            height=500,
+            background_color='#fafaf8',
+            colormap='RdYlGn',
+            relative_scaling=0.5,
+            min_font_size=10
+        ).generate_from_frequencies(word_freq)
+
+        fig, ax = plt.subplots(figsize=(10, 6), facecolor='#fafaf8')
+        ax.imshow(wc, interpolation='bilinear')
+        ax.axis('off')
+
+    # Save to bytes
+    buf = io.BytesIO()
+    plt.tight_layout(pad=0)
+    plt.savefig(buf, format='png', dpi=100, facecolor='#fafaf8')
+    plt.close(fig)
+    buf.seek(0)
+    return buf
+
+def generate_price_chart(price_data, animated=True):
+    """Generate animated price trend chart"""
+    fig, ax = plt.subplots(figsize=(10, 5), facecolor='#ffffff')
+
+    if not price_data:
+        ax.text(0.5, 0.5, 'No price data available',
+                ha='center', va='center', fontsize=16, color='#999',
+                transform=ax.transAxes)
+        ax.axis('off')
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=100, facecolor='#ffffff')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+
+    # Extract data
+    dates = [item.get('date', i) for i, item in enumerate(price_data)]
+    prices = [float(item.get('price', 0)) for item in price_data]
+
+    if animated:
+        # Create animated line chart
+        line, = ax.plot([], [], linewidth=3, color='#1a1a1a', marker='o', markersize=5)
+
+        ax.set_xlim(0, len(dates)-1)
+        ax.set_ylim(min(prices) * 0.95, max(prices) * 1.05)
+        ax.set_xlabel('Date', fontsize=12, color='#666')
+        ax.set_ylabel('Price ($)', fontsize=12, color='#666')
+        ax.set_title('Price Trend Over Time', fontsize=14, fontweight='bold', color='#1a1a1a')
+        ax.grid(True, alpha=0.3, linestyle='--')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        def init():
+            line.set_data([], [])
+            return line,
+
+        def animate_frame(frame):
+            x = list(range(frame + 1))
+            y = prices[:frame + 1]
+            line.set_data(x, y)
+            return line,
+
+        anim = animation.FuncAnimation(
+            fig, animate_frame, init_func=init,
+            frames=len(prices), interval=100, blit=True, repeat=True
+        )
+
+        buf = io.BytesIO()
+        anim.save(buf, writer='pillow', fps=10, format='gif')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+    else:
+        # Static chart
+        ax.plot(range(len(prices)), prices, linewidth=3, color='#1a1a1a',
+                marker='o', markersize=5)
+        ax.set_xlabel('Date', fontsize=12, color='#666')
+        ax.set_ylabel('Price ($)', fontsize=12, color='#666')
+        ax.set_title('Price Trend Over Time', fontsize=14, fontweight='bold', color='#1a1a1a')
+        ax.grid(True, alpha=0.3, linestyle='--')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        buf = io.BytesIO()
+        plt.tight_layout()
+        plt.savefig(buf, format='png', dpi=100, facecolor='#ffffff')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+
+def generate_cpi_chart(cpi_data, animated=True):
+    """Generate animated CPI bar chart"""
+    fig, ax = plt.subplots(figsize=(8, 5), facecolor='#ffffff')
+
+    if not cpi_data:
+        ax.text(0.5, 0.5, 'No CPI data available',
+                ha='center', va='center', fontsize=16, color='#999',
+                transform=ax.transAxes)
+        ax.axis('off')
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=100, facecolor='#ffffff')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+
+    labels = [item.get('label', f'Cat {i}')[:15] for i, item in enumerate(cpi_data)]
+    values = [float(item.get('value', 0)) for item in cpi_data]
+
+    if animated:
+        bars = ax.bar(range(len(labels)), [0] * len(labels), color='#1a1a1a', alpha=0.8)
+
+        ax.set_ylim(0, max(values) * 1.1)
+        ax.set_xticks(range(len(labels)))
+        ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=9)
+        ax.set_ylabel('YoY % Change', fontsize=11, color='#666')
+        ax.set_title('CPI Data by Category', fontsize=13, fontweight='bold', color='#1a1a1a')
+        ax.grid(True, axis='y', alpha=0.3, linestyle='--')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        def animate_frame(frame):
+            for bar, target_height in zip(bars, values):
+                current_height = bar.get_height()
+                new_height = min(current_height + target_height / 20, target_height)
+                bar.set_height(new_height)
+            return bars
+
+        anim = animation.FuncAnimation(
+            fig, animate_frame, frames=25, interval=50, blit=True, repeat=True
+        )
+
+        buf = io.BytesIO()
+        anim.save(buf, writer='pillow', fps=20, format='gif')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+    else:
+        ax.bar(range(len(labels)), values, color='#1a1a1a', alpha=0.8)
+        ax.set_xticks(range(len(labels)))
+        ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=9)
+        ax.set_ylabel('YoY % Change', fontsize=11, color='#666')
+        ax.set_title('CPI Data by Category', fontsize=13, fontweight='bold', color='#1a1a1a')
+        ax.grid(True, axis='y', alpha=0.3, linestyle='--')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        buf = io.BytesIO()
+        plt.tight_layout()
+        plt.savefig(buf, format='png', dpi=100, facecolor='#ffffff')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+
+def generate_trends_chart(trends_data, animated=True):
+    """Generate animated spending trends bar chart"""
+    fig, ax = plt.subplots(figsize=(8, 5), facecolor='#ffffff')
+
+    if not trends_data:
+        ax.text(0.5, 0.5, 'No trends data available',
+                ha='center', va='center', fontsize=16, color='#999',
+                transform=ax.transAxes)
+        ax.axis('off')
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=100, facecolor='#ffffff')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+
+    keywords = [item.get('keyword', f'KW{i}')[:12] for i, item in enumerate(trends_data)]
+    interests = [float(item.get('interest', 0)) for item in trends_data]
+
+    if animated:
+        bars = ax.bar(range(len(keywords)), [0] * len(keywords), color='#0066ff', alpha=0.8)
+
+        ax.set_ylim(0, max(interests) * 1.1)
+        ax.set_xticks(range(len(keywords)))
+        ax.set_xticklabels(keywords, rotation=45, ha='right', fontsize=9)
+        ax.set_ylabel('Interest Score', fontsize=11, color='#666')
+        ax.set_title('Spending Trends', fontsize=13, fontweight='bold', color='#1a1a1a')
+        ax.grid(True, axis='y', alpha=0.3, linestyle='--')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        def animate_frame(frame):
+            for bar, target_height in zip(bars, interests):
+                current_height = bar.get_height()
+                new_height = min(current_height + target_height / 20, target_height)
+                bar.set_height(new_height)
+            return bars
+
+        anim = animation.FuncAnimation(
+            fig, animate_frame, frames=25, interval=50, blit=True, repeat=True
+        )
+
+        buf = io.BytesIO()
+        anim.save(buf, writer='pillow', fps=20, format='gif')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
+    else:
+        ax.bar(range(len(keywords)), interests, color='#0066ff', alpha=0.8)
+        ax.set_xticks(range(len(keywords)))
+        ax.set_xticklabels(keywords, rotation=45, ha='right', fontsize=9)
+        ax.set_ylabel('Interest Score', fontsize=11, color='#666')
+        ax.set_title('Spending Trends', fontsize=13, fontweight='bold', color='#1a1a1a')
+        ax.grid(True, axis='y', alpha=0.3, linestyle='--')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        buf = io.BytesIO()
+        plt.tight_layout()
+        plt.savefig(buf, format='png', dpi=100, facecolor='#ffffff')
+        plt.close(fig)
+        buf.seek(0)
+        return buf
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -190,6 +426,129 @@ async def get_table_schema(table_name: str):
     except Exception as e:
         print(f"Error fetching schema: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/chart/sentiment/{search_term}")
+async def get_sentiment_chart(search_term: str):
+    """Generate sentiment word cloud chart"""
+    conn = get_db_connection()
+    words_data = []
+
+    if conn:
+        try:
+            cursor = conn.cursor(dictionary=True)
+            query = """
+            SELECT
+                e.ENTITY_TEXT as text,
+                SUM(aes.MENTIONS) as weight
+            FROM ARTICLE_ENTITY_SENTIMENT aes
+            JOIN ENTITIES e ON e.ENTITY_ID = aes.ENTITY_ID
+            JOIN ARTICLES a ON a.ARTICLE_ID = aes.ARTICLE_ID
+            JOIN ARTICLE_KEYWORDS ak ON ak.ARTICLE_ID = a.ARTICLE_ID
+            JOIN KEYWORDS k ON k.KEYWORD_ID = ak.KEYWORD_ID
+            WHERE k.KEYWORD_TEXT LIKE %s
+            GROUP BY e.ENTITY_TEXT
+            ORDER BY weight DESC
+            LIMIT 50
+            """
+            cursor.execute(query, (f'%{search_term}%',))
+            words_data = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print(f"Error fetching sentiment data: {e}")
+
+    img_buffer = generate_sentiment_wordcloud(words_data)
+    return StreamingResponse(img_buffer, media_type="image/png")
+
+@app.get("/api/chart/price/{search_term}")
+async def get_price_chart(search_term: str, animated: bool = True):
+    """Generate price trend chart"""
+    conn = get_db_connection()
+    price_data = []
+
+    if conn:
+        try:
+            cursor = conn.cursor(dictionary=True)
+            query = """
+            SELECT
+                DATE(TIMESTAMP) as date,
+                AVG(PRICE) as price
+            FROM PRICE_HISTORY
+            WHERE ASIN IN (
+                SELECT DISTINCT ASIN
+                FROM PRICE_HISTORY
+                LIMIT 1
+            )
+            GROUP BY DATE(TIMESTAMP)
+            ORDER BY DATE(TIMESTAMP) ASC
+            LIMIT 30
+            """
+            cursor.execute(query)
+            price_data = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print(f"Error fetching price data: {e}")
+
+    img_buffer = generate_price_chart(price_data, animated=animated)
+    media_type = "image/gif" if animated else "image/png"
+    return StreamingResponse(img_buffer, media_type=media_type)
+
+@app.get("/api/chart/cpi/{search_term}")
+async def get_cpi_chart(search_term: str, animated: bool = True):
+    """Generate CPI bar chart"""
+    conn = get_db_connection()
+    cpi_data = []
+
+    if conn:
+        try:
+            cursor = conn.cursor(dictionary=True)
+            query = """
+            SELECT
+                CATEGORY as label,
+                AVG(YOY_PCT) as value
+            FROM BLS_CPI_DATA
+            GROUP BY CATEGORY
+            LIMIT 8
+            """
+            cursor.execute(query)
+            cpi_data = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print(f"Error fetching CPI data: {e}")
+
+    img_buffer = generate_cpi_chart(cpi_data, animated=animated)
+    media_type = "image/gif" if animated else "image/png"
+    return StreamingResponse(img_buffer, media_type=media_type)
+
+@app.get("/api/chart/trends/{search_term}")
+async def get_trends_chart(search_term: str, animated: bool = True):
+    """Generate spending trends chart"""
+    conn = get_db_connection()
+    trends_data = []
+
+    if conn:
+        try:
+            cursor = conn.cursor(dictionary=True)
+            query = """
+            SELECT
+                KEYWORD as keyword,
+                AVG_INTEREST as interest
+            FROM SPENDING_TRENDS
+            ORDER BY AVG_INTEREST DESC
+            LIMIT 10
+            """
+            cursor.execute(query)
+            trends_data = cursor.fetchall()
+            cursor.close()
+            conn.close()
+        except Exception as e:
+            print(f"Error fetching trends data: {e}")
+
+    img_buffer = generate_trends_chart(trends_data, animated=animated)
+    media_type = "image/gif" if animated else "image/png"
+    return StreamingResponse(img_buffer, media_type=media_type)
 
 @app.get("/api/search")
 async def search(q: str):
