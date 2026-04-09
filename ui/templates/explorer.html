@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="explorer-page">
     <!-- Header -->
     <header class="explorer-header">
         <div class="header-content">
             <a href="/" class="logo-link">
-                <h1 class="logo">WigglNet</h1>
+                <img src="/static/img/wigglnet_logo.png" alt="WigglNet" class="logo-image">
             </a>
             <nav>
                 <a href="/">Home</a>
@@ -55,10 +55,9 @@
         <main class="table-viewer">
             <!-- Welcome State -->
             <div class="welcome-state" id="welcomeState">
-                <div class="welcome-icon">🗄️</div>
                 <h2>Database Explorer</h2>
-                <p>Select a table from the left sidebar to view its contents and schema.</p>
-                <div class="stats-grid">
+                <p>Select a table from the sidebar to view its contents and schema information.</p>
+                <div class="stats-grid-explorer">
                     <div class="stat-card">
                         <div class="stat-value" id="totalTables">8</div>
                         <div class="stat-label">Tables</div>
@@ -148,7 +147,6 @@
 
                 <!-- Error State -->
                 <div class="error-state hidden" id="errorState">
-                    <div class="error-icon">⚠️</div>
                     <h3>Error Loading Data</h3>
                     <p id="errorMessage">An error occurred while loading the table data.</p>
                     <button class="btn-retry" onclick="retryLoad()">Retry</button>

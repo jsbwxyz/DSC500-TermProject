@@ -3,105 +3,502 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WigglNet - Market Analytics Platform</title>
+    <title>WigglNet - 实时电商数据洞察平台 | Real-Time Market Intelligence</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Side Menu -->
-    <nav class="side-menu">
-        <a href="#" class="menu-item">Signup</a>
-        <a href="#about" class="menu-item">About</a>
-        <a href="#contact" class="menu-item">Contact</a>
-        <a href="#pricing" class="menu-item">Pricing</a>
-        <a href="/explorer" class="menu-item">TBAU</a>
-    </nav>
-
-    <!-- Hero Section with Centered Word Cloud -->
-    <section class="hero-search">
-        <!-- Word Cloud Background -->
-        <div class="wordcloud-bg">
-            <canvas id="wordGlobe" width="800" height="800"></canvas>
-        </div>
-
-        <!-- Overlay Search -->
-        <div class="search-overlay">
-            <h1 class="brand-title">WigglNet</h1>
-            <div class="search-container">
-                <label for="categorySearch" class="search-label">for:</label>
-                <input
-                    type="text"
-                    id="categorySearch"
-                    class="search-input"
-                    placeholder="what's next"
-                    autocomplete="off"
-                />
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="/static/img/wigglnet_logo.png" alt="WigglNet" class="logo-image">
             </div>
-            <p class="search-instruction">SEARCH A KEYWORD OR CATEGORY</p>
-            <button onclick="performSearch()" class="btn-search">Search</button>
+
+            <nav class="main-nav">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    <span>Market Insights</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">🔥</span>
+                    <span>Trending</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">📈</span>
+                    <span>Analytics</span>
+                </a>
+                <a href="/explorer" class="nav-link">
+                    <span class="nav-icon">🗄️</span>
+                    <span>Database</span>
+                </a>
+                <a href="#pricing" class="nav-link">
+                    <span class="nav-icon">💎</span>
+                    <span>Premium</span>
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="btn-outlined">登录 Login</button>
+                <button class="btn-primary">免费试用 Free Trial</button>
+            </div>
         </div>
-    </section>
+    </header>
+
+    <!-- Ticker Bar - Live Data Stream -->
+    <div class="ticker-bar">
+        <div class="ticker-label">🔥 LIVE MARKET TRENDS</div>
+        <div class="ticker-content" id="tickerContent">
+            <span class="ticker-item">📱 Mobile Accessories <span class="trend-up">+127%</span></span>
+            <span class="ticker-item">👟 Athletic Footwear <span class="trend-up">+89%</span></span>
+            <span class="ticker-item">💄 Beauty & Skincare <span class="trend-up">+56%</span></span>
+            <span class="ticker-item">🎮 Gaming Hardware <span class="trend-down">-23%</span></span>
+            <span class="ticker-item">🏠 Home Goods <span class="trend-up">+41%</span></span>
+            <span class="ticker-item">⌚ Smart Watches <span class="trend-up">+98%</span></span>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Left Sidebar - Quick Stats & Navigation -->
+        <aside class="left-sidebar">
+            <!-- Platform Stats -->
+            <div class="stats-card">
+                <div class="card-header">
+                    <h3>平台数据 Platform Stats</h3>
+                    <span class="update-time">2分钟前更新</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" data-count="500000000">0</div>
+                        <div class="stat-label">产品追踪<br>Products Tracked</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-count="158">0</div>
+                        <div class="stat-label">品类覆盖<br>Categories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-count="50000">0</div>
+                        <div class="stat-label">商家监控<br>Merchants</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-count="24">0</div>
+                        <div class="stat-label">实时更新<br>Updates/Day</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hot Categories -->
+            <div class="hot-categories">
+                <div class="card-header">
+                    <h3>🔥 Hot Categories</h3>
+                </div>
+                <div class="category-list">
+                    <div class="category-item hot" onclick="searchCategory('mobile accessories')">
+                        <span class="category-rank">1</span>
+                        <span class="category-name">Mobile Accessories</span>
+                        <span class="category-badge fire">HOT</span>
+                    </div>
+                    <div class="category-item" onclick="searchCategory('athletic footwear')">
+                        <span class="category-rank">2</span>
+                        <span class="category-name">Athletic Footwear</span>
+                        <span class="category-badge hot">RISING</span>
+                    </div>
+                    <div class="category-item" onclick="searchCategory('beauty skincare')">
+                        <span class="category-rank">3</span>
+                        <span class="category-name">Beauty & Skincare</span>
+                        <span class="category-badge new">NEW</span>
+                    </div>
+                    <div class="category-item" onclick="searchCategory('smart home')">
+                        <span class="category-rank">4</span>
+                        <span class="category-name">Smart Home</span>
+                        <span class="category-badge">UP</span>
+                    </div>
+                    <div class="category-item" onclick="searchCategory('gaming')">
+                        <span class="category-rank">5</span>
+                        <span class="category-name">Gaming Hardware</span>
+                        <span class="category-badge">UP</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access -->
+            <div class="quick-access">
+                <div class="card-header">
+                    <h3>⚡ Quick Access</h3>
+                </div>
+                <div class="quick-links">
+                    <a href="#" class="quick-link">📱 Electronics</a>
+                    <a href="#" class="quick-link">👗 Fashion</a>
+                    <a href="#" class="quick-link">🏠 Home & Living</a>
+                    <a href="#" class="quick-link">💄 Beauty</a>
+                    <a href="#" class="quick-link">🎮 Gaming</a>
+                    <a href="#" class="quick-link">📚 Education</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Content Area -->
+        <section class="center-content">
+            <!-- Hero Search Section -->
+            <div class="hero-section">
+                <div class="hero-gradient"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-main">Real-Time Market Intelligence</span>
+                        <span class="title-sub">Advanced analytics for ecommerce trends and predictions</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Track 500M+ products across global markets with 24/7 real-time updates and AI-powered forecasting
+                    </p>
+
+                    <!-- Enhanced Search -->
+                    <div class="search-box">
+                        <div class="search-input-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input
+                                type="text"
+                                id="categorySearch"
+                                class="search-input"
+                                placeholder="Search categories, products, or trends..."
+                                autocomplete="off"
+                            />
+                        </div>
+                        <button onclick="performSearch()" class="btn-search">
+                            Analyze
+                        </button>
+                    </div>
+
+                    <!-- Quick Search Tags -->
+                    <div class="quick-tags">
+                        <span class="tag-label">Popular searches:</span>
+                        <button class="quick-tag" onclick="searchCategory('iPhone')">iPhone Accessories</button>
+                        <button class="quick-tag" onclick="searchCategory('sneakers')">Athletic Shoes</button>
+                        <button class="quick-tag" onclick="searchCategory('skincare')">Skincare</button>
+                        <button class="quick-tag" onclick="searchCategory('gaming')">Gaming</button>
+                        <button class="quick-tag" onclick="searchCategory('watches')">Smart Watches</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Market Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Price Index Card -->
+                <div class="data-card gradient-purple">
+                    <div class="card-header">
+                        <h3>💰 Price Index</h3>
+                        <span class="card-badge">LIVE</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="big-number">
+                            <span class="number" data-count="127.8">0</span>
+                            <span class="trend-indicator up">↑ 5.2%</span>
+                        </div>
+                        <div class="mini-chart" id="priceIndexChart"></div>
+                        <div class="card-footer">
+                            <span>较上周</span>
+                            <span class="highlight-green">+12.4%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Analysis Card -->
+                <div class="data-card gradient-blue">
+                    <div class="card-header">
+                        <h3>😊 Sentiment Analysis</h3>
+                        <span class="card-badge">AI</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="sentiment-bars">
+                            <div class="sentiment-bar">
+                                <span class="label">Positive</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill positive" style="width: 68%">68%</div>
+                                </div>
+                            </div>
+                            <div class="sentiment-bar">
+                                <span class="label">Neutral</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill neutral" style="width: 24%">24%</div>
+                                </div>
+                            </div>
+                            <div class="sentiment-bar">
+                                <span class="label">Negative</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill negative" style="width: 8%">8%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trending Products Card -->
+                <div class="data-card gradient-orange">
+                    <div class="card-header">
+                        <h3>🚀 Trending Products</h3>
+                        <span class="card-badge">24H</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="trending-list">
+                            <div class="trending-item">
+                                <span class="rank gold">1</span>
+                                <span class="name">Wireless Earbuds</span>
+                                <span class="sales">+2.3K</span>
+                            </div>
+                            <div class="trending-item">
+                                <span class="rank silver">2</span>
+                                <span class="name">Phone Cases</span>
+                                <span class="sales">+1.8K</span>
+                            </div>
+                            <div class="trending-item">
+                                <span class="rank bronze">3</span>
+                                <span class="name">Athletic Shoes</span>
+                                <span class="sales">+1.5K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Activity Card -->
+                <div class="data-card gradient-green">
+                    <div class="card-header">
+                        <h3>📊 Market Activity</h3>
+                        <span class="card-badge">LIVE</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="activity-meter">
+                            <div class="meter-circle">
+                                <svg width="120" height="120">
+                                    <circle cx="60" cy="60" r="50" class="meter-bg"></circle>
+                                    <circle cx="60" cy="60" r="50" class="meter-fill" id="activityCircle"></circle>
+                                </svg>
+                                <div class="meter-value">
+                                    <span class="value">87</span>
+                                    <span class="label">活跃</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="activity-stats">
+                            <div class="activity-stat">
+                                <span class="stat-dot green"></span>
+                                <span>158 Active Categories</span>
+                            </div>
+                            <div class="activity-stat">
+                                <span class="stat-dot yellow"></span>
+                                <span>23 New Listings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Heatmap Card -->
+                <div class="data-card wide gradient-red">
+                    <div class="card-header">
+                        <h3>🔥 Category Heatmap</h3>
+                        <span class="card-badge">TODAY</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="heatmap-grid">
+                            <div class="heatmap-cell hot" data-temp="high">
+                                <span class="cell-name">Mobile</span>
+                                <span class="cell-value">98</span>
+                            </div>
+                            <div class="heatmap-cell warm" data-temp="medium-high">
+                                <span class="cell-name">Apparel</span>
+                                <span class="cell-value">85</span>
+                            </div>
+                            <div class="heatmap-cell warm" data-temp="medium">
+                                <span class="cell-name">Beauty</span>
+                                <span class="cell-value">76</span>
+                            </div>
+                            <div class="heatmap-cell medium" data-temp="medium">
+                                <span class="cell-name">Electronics</span>
+                                <span class="cell-value">68</span>
+                            </div>
+                            <div class="heatmap-cell medium" data-temp="medium-low">
+                                <span class="cell-name">Food</span>
+                                <span class="cell-value">54</span>
+                            </div>
+                            <div class="heatmap-cell cool" data-temp="low">
+                                <span class="cell-name">Books</span>
+                                <span class="cell-value">32</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Prediction Card -->
+                <div class="data-card wide gradient-cyan">
+                    <div class="card-header">
+                        <h3>🤖 AI Trend Prediction</h3>
+                        <span class="card-badge">AI</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="prediction-grid">
+                            <div class="prediction-item">
+                                <div class="prediction-info">
+                                    <h4>Wearable Technology</h4>
+                                    <p>7-day forecast: <span class="highlight-green">+156% growth</span></p>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 92%"></div>
+                                        <span class="confidence-text">Confidence: 92%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prediction-item">
+                                <div class="prediction-info">
+                                    <h4>Outdoor Recreation</h4>
+                                    <p>Weekly potential: <span class="highlight-orange">High growth alert</span></p>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" style="width: 88%"></div>
+                                        <span class="confidence-text">Confidence: 88%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Sidebar - Live Feed & Alerts -->
+        <aside class="right-sidebar">
+            <!-- Live Activity Feed -->
+            <div class="live-feed">
+                <div class="card-header">
+                    <h3>⚡ Live Activity Feed</h3>
+                </div>
+                <div class="feed-list" id="liveFeed">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Market Alerts -->
+            <div class="alerts-card">
+                <div class="card-header">
+                    <h3>🚨 Market Alerts</h3>
+                </div>
+                <div class="alerts-list">
+                    <div class="alert-item warning">
+                        <span class="alert-icon">⚠️</span>
+                        <div class="alert-content">
+                            <div class="alert-title">Price Volatility</div>
+                            <div class="alert-desc">Mobile accessories up +23%</div>
+                            <div class="alert-time">5 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="alert-item success">
+                        <span class="alert-icon">✅</span>
+                        <div class="alert-content">
+                            <div class="alert-title">Trend Confirmed</div>
+                            <div class="alert-desc">Athletic footwear sustained growth</div>
+                            <div class="alert-time">12 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="alert-item info">
+                        <span class="alert-icon">💡</span>
+                        <div class="alert-content">
+                            <div class="alert-title">New Listings</div>
+                            <div class="alert-desc">23 new categories under monitoring</div>
+                            <div class="alert-time">28 minutes ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Merchants -->
+            <div class="merchants-card">
+                <div class="card-header">
+                    <h3>👑 Top Merchants</h3>
+                </div>
+                <div class="merchants-list">
+                    <div class="merchant-item">
+                        <span class="merchant-rank">🥇</span>
+                        <span class="merchant-name">TechGear Pro</span>
+                        <span class="merchant-score">98.5</span>
+                    </div>
+                    <div class="merchant-item">
+                        <span class="merchant-rank">🥈</span>
+                        <span class="merchant-name">Fashion Hub</span>
+                        <span class="merchant-score">96.2</span>
+                    </div>
+                    <div class="merchant-item">
+                        <span class="merchant-rank">🥉</span>
+                        <span class="merchant-name">Smart Living</span>
+                        <span class="merchant-score">94.8</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
 
     <!-- Results Page (Hidden by default) -->
     <section class="results-page hidden" id="resultsPage">
-        <div class="container-wide">
-            <!-- Back to Search -->
-            <button onclick="backToSearch()" class="btn-back">← Back to Search</button>
+        <div class="results-container">
+            <div class="results-header">
+                <button onclick="backToSearch()" class="btn-back">
+                    ← Back
+                </button>
+                <h2 class="results-title">
+                    <span id="searchedTerm"></span>
+                    <span class="title-sub">Analysis Report</span>
+                </h2>
+                <div class="results-actions">
+                    <button class="btn-export">📥 Export Report</button>
+                    <button class="btn-share">🔗 Share</button>
+                </div>
+            </div>
 
-            <h2 class="results-title" id="resultsTitle">Results for: <span id="searchedTerm"></span></h2>
-
-            <!-- Two Column Grid Layout -->
+            <!-- Results Dashboard Grid -->
             <div class="results-grid">
-                <!-- Left Column -->
-                <div class="results-column-left">
-                    <!-- What They Say - Sentiment Word Cloud -->
-                    <section class="result-section">
-                        <h3 class="section-title">What They Say</h3>
-                        <div class="chart-container">
-                            <img id="sentimentCloud" class="chart-image" alt="Sentiment Word Cloud" />
-                        </div>
-                        <p class="section-desc">Word cloud based on category chosen</p>
-                    </section>
-
-                    <!-- What's Happening - CPI Data -->
-                    <section class="result-section">
-                        <h3 class="section-title">What's Happening</h3>
-                        <div class="chart-grid">
-                            <div class="chart-item">
-                                <img id="cpiChart" class="chart-image" alt="CPI Data Chart" />
-                            </div>
-                            <div class="chart-item">
-                                <img id="trendsChart" class="chart-image" alt="Spending Trends Chart" />
-                            </div>
-                        </div>
-                        <p class="section-desc">CPI data and market indicators</p>
-                    </section>
+                <!-- Sentiment Wordcloud -->
+                <div class="result-card full-width">
+                    <div class="card-header">
+                        <h3>💬 Consumer Sentiment</h3>
+                        <span class="data-source">Based on 100K+ reviews</span>
+                    </div>
+                    <div class="card-body">
+                        <img id="sentimentCloud" class="chart-image" alt="Sentiment Word Cloud" />
+                    </div>
                 </div>
 
-                <!-- Right Column -->
-                <div class="results-column-right">
-                    <!-- Where It's Going - Price Trends -->
-                    <section class="result-section">
-                        <h3 class="section-title">Where It's Going</h3>
-                        <div class="chart-container">
-                            <img id="priceChart" class="chart-image" alt="Price Trend Chart" />
-                        </div>
-                        <p class="section-desc">Price trend analysis over time</p>
-                    </section>
+                <!-- Price Trends -->
+                <div class="result-card">
+                    <div class="card-header">
+                        <h3>📈 Price Trends</h3>
+                        <span class="data-source">30-day analysis</span>
+                    </div>
+                    <div class="card-body">
+                        <img id="priceChart" class="chart-image" alt="Price Trend Chart" />
+                    </div>
+                </div>
 
-                    <!-- Divider -->
-                    <div class="column-divider"></div>
+                <!-- CPI Data -->
+                <div class="result-card">
+                    <div class="card-header">
+                        <h3>📊 Market Indicators</h3>
+                        <span class="data-source">Official CPI data</span>
+                    </div>
+                    <div class="card-body charts-grid">
+                        <img id="cpiChart" class="chart-image" alt="CPI Chart" />
+                        <img id="trendsChart" class="chart-image" alt="Trends Chart" />
+                    </div>
+                </div>
 
-                    <!-- How We Know - Data Table -->
-                    <section class="result-section">
-                        <h3 class="section-title">How We Know "What They Say"</h3>
+                <!-- Data Table -->
+                <div class="result-card full-width">
+                    <div class="card-header">
+                        <h3>🔍 Detailed Analysis</h3>
+                        <span class="data-source">Real-time data</span>
+                    </div>
+                    <div class="card-body">
                         <div class="table-wrapper">
-                            <table class="results-table" id="resultsTable">
+                            <table class="data-table" id="resultsTable">
                                 <thead>
                                     <tr>
-                                        <th>VAL</th>
+                                        <th>Value</th>
                                         <th>Keyword</th>
                                         <th>Product</th>
                                         <th>Sentiment</th>
@@ -113,13 +510,21 @@
                                 </tbody>
                             </table>
                         </div>
-                    </section>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <button class="fab" title="返回顶部 Back to Top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            ↑
+        </button>
+    </div>
+
     <script src="/static/js/globe.js"></script>
     <script src="/static/js/search.js"></script>
+    <script src="/static/js/animations.js"></script>
 </body>
 </html>

@@ -8,13 +8,16 @@ async function performSearch() {
     const searchTerm = searchInput.value.trim();
 
     if (!searchTerm) {
-        alert('Please enter a keyword or category');
+        alert('请输入关键词 Please enter a keyword or category');
         return;
     }
 
-    // Hide hero, show results
-    document.querySelector('.hero-search').classList.add('hidden');
+    // Hide main content, show results
+    document.querySelector('.main-content').classList.add('hidden');
+    document.querySelector('.top-nav').style.display = 'block';
+    document.querySelector('.ticker-bar').style.display = 'none';
     document.getElementById('resultsPage').classList.remove('hidden');
+    document.getElementById('resultsPage').classList.add('active');
     document.getElementById('searchedTerm').textContent = searchTerm;
 
     // Fetch and display results
@@ -23,7 +26,9 @@ async function performSearch() {
 
 // Back to search
 function backToSearch() {
-    document.querySelector('.hero-search').classList.remove('hidden');
+    document.querySelector('.main-content').classList.remove('hidden');
+    document.querySelector('.ticker-bar').style.display = 'flex';
+    document.getElementById('resultsPage').classList.remove('active');
     document.getElementById('resultsPage').classList.add('hidden');
 }
 
