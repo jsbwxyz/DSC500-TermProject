@@ -235,6 +235,7 @@ def main():
     else:
         print("WARNING: Could not connect to database. Proceeding without duplicate checking.")
 
+    # CHECKING FOR EXISTING ARTICLES
     # Filter out articles that already exist (matching by title only, since we don't have published_date yet)
     # We'll check the full title+date match after scraping the publish date
     existing_titles = {title for title, date in existing_articles}
@@ -249,6 +250,7 @@ def main():
         else:
             articles_to_scrape.append(article)
 
+    # print found articles
     print(f"\nArticles found: {len(all_articles)}")
     print(f"Already in database (by title): {len(skipped_by_title)}")
     print(f"New articles to scrape: {len(articles_to_scrape)}")
@@ -272,10 +274,12 @@ def main():
     for i, article in enumerate(articles_to_scrape, 1):
         print(f"\n[{i}/{len(articles_to_scrape)}] {article['title'][:50]}...")
         paragraphs = scrape_paragraphs_from_article(article['link'], article)
+        # call paragraphs srcapped on line 184
         article['paragraphs'] = paragraphs
 
         time.sleep(3)  # Longer delay for Selenium
 
+    # KEYWORD EXTRACTOR AND SENTIMENT ANALYZER
     # Step 5: Extract keywords from new articles
     print("\n" + "-" * 70)
     print("Extracting keywords...")
@@ -286,17 +290,18 @@ def main():
     print("Analyzing entity sentiment...")
     add_sentiment_to_articles(articles_to_scrape, top_n=10, verbose=True)
 
+    # SAVED TO JSON BEFORE DB UPLOAD
     # Step 6: Save results to JSON
     data_dir = get_data_dir('keywords')
     output_file = data_dir / f"html_articles_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, 'w', encoding='utf-8') as f: # dump scraped articles
         json.dump(articles_to_scrape, f, indent=2, ensure_ascii=False)
 
     print("\n" + "=" * 70)
     print(f"✓ Done! Scraped {len(articles_to_scrape)} new articles from {len(HTML_URLS)} page(s)")
 
-    # Summary stats
+    # print out a summary of statistics after run
     total_paragraphs = sum(len(a['paragraphs']) for a in articles_to_scrape)
     successful_content = sum(1 for a in articles_to_scrape if len(a['paragraphs']) > 0)
     successful_keywords = sum(1 for a in articles_to_scrape if a.get('keywords'))
