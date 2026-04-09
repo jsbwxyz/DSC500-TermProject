@@ -1,7 +1,7 @@
 // WigglNet - Interactive Animations & Live Updates
 
 // Number counting animation
-function animateCounter(element, target, duration = 2000) {
+function animateCounter(element, target, duration = 1200) {
     const start = 0;
     const increment = target / (duration / 16);
     let current = start;
@@ -67,7 +67,7 @@ function updateLiveFeed() {
                 <div class="feed-time">${item.time}</div>
             `;
             feedList.appendChild(feedItem);
-        }, index * 100);
+        }, index * 50);
     });
 }
 
@@ -174,23 +174,23 @@ function animateActivityMeter() {
     // Animate
     setTimeout(() => {
         circle.style.strokeDashoffset = offset;
-    }, 500);
+    }, 300);
 }
 
 // Refresh live data periodically
 function startLiveUpdates() {
-    // Update counters every 30 seconds
+    // Update counters every 60 seconds
     setInterval(() => {
         initCounters();
-    }, 30000);
+    }, 60000);
 
-    // Refresh live feed every 15 seconds
+    // Refresh live feed every 30 seconds
     setInterval(() => {
         // Rotate feed data
         const firstItem = liveFeedData.shift();
         liveFeedData.push(firstItem);
         updateLiveFeed();
-    }, 15000);
+    }, 30000);
 }
 
 // Animate search on Enter key
@@ -220,18 +220,7 @@ function setupSearchListeners() {
     }
 }
 
-// Card hover effects
-function setupCardAnimations() {
-    const cards = document.querySelectorAll('.data-card, .category-item, .quick-link');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-4px)';
-        });
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-        });
-    });
-}
+// Card hover effects - removed for cleaner, more subtle animations
 
 // Initialize all animations when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -250,9 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup search
     setupSearchListeners();
-
-    // Setup card animations
-    setupCardAnimations();
 
     // Start live updates
     startLiveUpdates();
