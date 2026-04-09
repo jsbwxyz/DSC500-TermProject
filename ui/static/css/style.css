@@ -77,7 +77,8 @@
 }
 
 body {
-    font-family: var(--font-serif);
+  --font-serif: "Trebuchet MS", Arial, sans-serif;
+  --font-heading: "Trebuchet MS", Arial, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.7;
@@ -122,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo-image {
-    height: 48px;
+    height: 40px;
     width: auto;
     display: block;
 }
@@ -256,6 +257,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     white-space: nowrap;
+    display:none;
 }
 
 .ticker-content {
@@ -512,7 +514,7 @@ h1, h2, h3, h4, h5, h6 {
 .title-main {
     display: block;
     font-size: 3.5rem;
-    font-weight: 400;
+    font-weight: 800;
     background: var(--gradient-ocean);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1810,6 +1812,7 @@ h1, h2, h3, h4, h5, h6 {
     .main-nav {
         flex-direction: column;
         width: 100%;
+        display: none;
     }
 
     .title-main {
