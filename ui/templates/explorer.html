@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Explorer - WigglNet</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="explorer-page">
+    <!-- Header -->
+    <header class="explorer-header">
+        <div class="header-content">
+            <a href="/" class="logo-link">
+                <h1 class="logo">WigglNet</h1>
+            </a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/explorer" class="active">Database Explorer</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Explorer Layout -->
+    <div class="explorer-layout">
+        <!-- Left Sidebar: Table Tree -->
+        <aside class="table-tree">
+            <div class="tree-header">
+                <h2>Tables</h2>
+                <span class="table-count" id="tableCount">8 tables</span>
+            </div>
+
+            <div class="tree-container">
+                {% for table in tables %}
+                <div class="table-item" data-table="{{ table.name }}">
+                    <div class="table-info">
+                        <span class="table-icon">{{ table.icon }}</span>
+                        <div class="table-details">
+                            <div class="table-name">{{ table.name }}</div>
+                            <div class="table-description">{{ table.description }}</div>
+                        </div>
+                    </div>
+                    <div class="table-actions">
+                        <button class="btn-view" onclick="loadTable('{{ table.name }}')">View</button>
+                        <button class="btn-schema" onclick="loadSchema('{{ table.name }}')">Schema</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <!-- Main Content: Table Viewer -->
+        <main class="table-viewer">
+            <!-- Welcome State -->
+            <div class="welcome-state" id="welcomeState">
+                <div class="welcome-icon">🗄️</div>
+                <h2>Database Explorer</h2>
+                <p>Select a table from the left sidebar to view its contents and schema.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTables">8</div>
+                        <div class="stat-label">Tables</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalRecords">~</div>
+                        <div class="stat-label">Total Records</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Data Sources</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table View -->
+            <div class="table-view hidden" id="tableView">
+                <!-- Table Header -->
+                <div class="table-view-header">
+                    <div class="table-title">
+                        <h2 id="currentTableName">Table Name</h2>
+                        <span class="record-count" id="recordCount">0 records</span>
+                    </div>
+                    <div class="view-controls">
+                        <button class="btn-refresh" onclick="refreshCurrentTable()">
+                            <span>↻</span> Refresh
+                        </button>
+                        <button class="btn-export" onclick="exportTable()">
+                            <span>↓</span> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab('data')">Data</button>
+                    <button class="tab-btn" onclick="switchTab('schema')">Schema</button>
+                </div>
+
+                <!-- Data Tab -->
+                <div class="tab-content active" id="dataTab">
+                    <div class="table-container">
+                        <table class="data-table" id="dataTable">
+                            <thead id="tableHead">
+                                <!-- Populated dynamically -->
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <button class="btn-page" id="prevBtn" onclick="previousPage()">← Previous</button>
+                        <span class="page-info" id="pageInfo">Page 1</span>
+                        <button class="btn-page" id="nextBtn" onclick="nextPage()">Next →</button>
+                    </div>
+                </div>
+
+                <!-- Schema Tab -->
+                <div class="tab-content" id="schemaTab">
+                    <div class="schema-container">
+                        <table class="schema-table" id="schemaTable">
+                            <thead>
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Type</th>
+                                    <th>Null</th>
+                                    <th>Key</th>
+                                    <th>Default</th>
+                                    <th>Extra</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schemaBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state hidden" id="loadingState">
+                    <div class="spinner"></div>
+                    <p>Loading data...</p>
+                </div>
+
+                <!-- Error State -->
+                <div class="error-state hidden" id="errorState">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Error Loading Data</h3>
+                    <p id="errorMessage">An error occurred while loading the table data.</p>
+                    <button class="btn-retry" onclick="retryLoad()">Retry</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/explorer.js"></script>
+</body>
+</html>

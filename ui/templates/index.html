@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WigglNet - Market Analytics Platform</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Side Menu -->
+    <nav class="side-menu">
+        <a href="#" class="menu-item">Signup</a>
+        <a href="#about" class="menu-item">About</a>
+        <a href="#contact" class="menu-item">Contact</a>
+        <a href="#pricing" class="menu-item">Pricing</a>
+        <a href="/explorer" class="menu-item">TBAU</a>
+    </nav>
+
+    <!-- Hero Section with Centered Word Cloud -->
+    <section class="hero-search">
+        <!-- Word Cloud Background -->
+        <div class="wordcloud-bg">
+            <canvas id="wordGlobe" width="800" height="800"></canvas>
+        </div>
+
+        <!-- Overlay Search -->
+        <div class="search-overlay">
+            <h1 class="brand-title">WigglNet</h1>
+            <div class="search-container">
+                <label for="categorySearch" class="search-label">for:</label>
+                <input
+                    type="text"
+                    id="categorySearch"
+                    class="search-input"
+                    placeholder="what's next"
+                    autocomplete="off"
+                />
+            </div>
+            <p class="search-instruction">SEARCH A KEYWORD OR CATEGORY</p>
+            <button onclick="performSearch()" class="btn-search">Search</button>
+        </div>
+    </section>
+
+    <!-- Results Page (Hidden by default) -->
+    <section class="results-page hidden" id="resultsPage">
+        <div class="container-wide">
+            <!-- Back to Search -->
+            <button onclick="backToSearch()" class="btn-back">← Back to Search</button>
+
+            <h2 class="results-title" id="resultsTitle">Results for: <span id="searchedTerm"></span></h2>
+
+            <!-- What They Say - Sentiment Word Cloud -->
+            <section class="result-section">
+                <h3 class="section-title">What They Say</h3>
+                <div class="wordcloud-container">
+                    <canvas id="sentimentCloud" width="600" height="400"></canvas>
+                </div>
+                <p class="section-desc">Word cloud based on category chosen</p>
+            </section>
+
+            <!-- Where It's Going - Price Trends -->
+            <section class="result-section">
+                <h3 class="section-title">Where It's Going</h3>
+                <div class="chart-container">
+                    <canvas id="priceChart" width="800" height="400"></canvas>
+                </div>
+                <p class="section-desc">Price trend analysis over time</p>
+            </section>
+
+            <!-- What's Happening - CPI Data -->
+            <section class="result-section">
+                <h3 class="section-title">What's Happening</h3>
+                <div class="chart-grid">
+                    <div class="chart-item">
+                        <canvas id="cpiChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="chart-item">
+                        <canvas id="trendsChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+                <p class="section-desc">CPI data and market indicators</p>
+            </section>
+
+            <!-- How We Know - Data Table -->
+            <section class="result-section">
+                <h3 class="section-title">How We Know "What They Say"</h3>
+                <div class="table-wrapper">
+                    <table class="results-table" id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>VAL</th>
+                                <th>Keyword</th>
+                                <th>Product</th>
+                                <th>Sentiment</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <script src="/static/js/globe.js"></script>
+    <script src="/static/js/search.js"></script>
+</body>
+</html>
