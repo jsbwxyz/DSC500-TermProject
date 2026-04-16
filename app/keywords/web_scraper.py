@@ -16,9 +16,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from app.shared_utils import parse_publish_date, create_chrome_options, get_data_dir
-from tools.keyword_extractor import add_keywords_to_articles
-from tools.sentiment_analyzer import add_sentiment_to_articles
-from tools.db_uploader import DatabaseUploader
+from pipeline.keyword_extractor import add_keywords_to_articles
+from pipeline.sentiment_analyzer import add_sentiment_to_articles
+from pipeline.db_uploader import DatabaseUploader
 
 # list of HTML page URLs to scrape
 #  *+* Be mindful of HTML layout before scraping *+*

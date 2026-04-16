@@ -10,7 +10,7 @@ import json
 import time
 from datetime import datetime
 from app.shared_utils import parse_publish_date, get_standard_headers, get_data_dir
-from tools.keyword_extractor import add_keywords_to_articles
+from pipeline.keyword_extractor import add_keywords_to_articles
 
 # List of RSS feed URLs
 RSS_URLS = [
