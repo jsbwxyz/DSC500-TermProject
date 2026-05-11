@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>TermProject-trimmed</title><script src="file:///usr/share/javascript/requirejs/require.min.js"></script>
+<title>JeremyBarton-TermProject-Milestone-2</title><script src="file:///usr/share/javascript/requirejs/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7839,7 +7839,7 @@ Spring 2026</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><small><b>IMPORTANT NOTE: </b> Project reframed to validate effectivness of RoBERTa model rather than predict accruacy of it's outputs. Ground-truth data needed for prediction, but not immediately available. In practice it will be collected through client outcomes, feedback and business results.</small></p>
+<p><small><b>IMPORTANT NOTE: </b> Project reframed to validate effectiveness of RoBERTa model rather than predict accuracy of its outputs. Ground-truth data needed for prediction, but not immediately available. In practice it will be collected through client outcomes, feedback and business results.</small></p>
 </div>
 </div>
 </div>
@@ -7861,7 +7861,7 @@ Spring 2026</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>"Data is the new oil" is often used to describe the immense monetary benefit of holding valuable information that can lead to winning critical business decisions. The world now demands <i>intelligent</i> data that thinks for itself. Data that will grow and learn as their comapny does; giving it a mind of it's own.</p>
+<p>"Data is the new oil" is often used to describe the immense monetary benefit of holding valuable information that can lead to winning critical business decisions. The world now demands <i>intelligent</i> data that thinks for itself. Data that will grow and learn as their company does, giving it a mind of its own.</p>
 </div>
 </div>
 </div>
@@ -7883,11 +7883,11 @@ Spring 2026</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Small e-commerce sellers and product manufacturers struggle to understand what is popular, why and what will be popular in the future. This data could be retrieved by a search engine or AI, but there is more value in using advanced models specially trained to identify people, organizations or entities related to a specific product category to discover these insights rather than a Large Language Model trained on everything, that happens to have picked up data related to a particular target market.</p>
-<p>A sentiment analysis model called RoBERTa, developed by Facebook, applies labels to keyword and entities based on precieved context. The reference data is data comes from various social media platforms, like Twitter.</p>
-<p>While the RoBERTA model applies labels to keywords and entities that may be related to the target market, it cannot be treated as truth. This is becuase there are no "ground-truths" for the model to learn what is true and not true. Some could say this is a metaphor for civiliazations's loss of what we have, as a collective, previously believed in, but no longer do. In the same way, the decisions we make are based on predictions that were only supported by patterns, not principles.</p>
-<p>In practice ground truths to improve RoBERTa would be realized by client outcomes, manual review or business results. This would come after the client has received the report of keyword/entities that were labeled by RoBERTa. WigglNet would then work with the client to monitor outcomes based on the decisions made by RoBERTa - confirming or denying the labels produced by the model.</p>
-<p>Therefore, the question being asked in this business problem must be: <i><b>"Can we validate the sentiment labels produced by RoBERTa for a specific product market niche?</b></i>" Doing so would give extra reassurance to the inital pattern-based report provided to clients - improving precieved trustworthiness.</p>
+<p>Small e-commerce sellers and product manufacturers struggle to understand what is popular, why, and what will be popular in the future. This data could be retrieved by a search engine or AI, but there is more value in using advanced models specially trained to identify people, organizations or entities related to a specific product category to discover these insights rather than a Large Language Model trained on everything that happens to have picked up data related to a particular target market.</p>
+<p>A sentiment analysis model called RoBERTa, developed by Facebook, applies labels to keywords and entities based on perceived context. The reference data comes from various social media platforms, like Twitter.</p>
+<p>While the RoBERTa model applies labels to keywords and entities that may be related to the target market, it cannot be treated as truth. This is because there are no "ground-truths" for the model to learn what is true and not true. Some could say this is a metaphor for civilization's loss of what we have, as a collective, previously believed in, but no longer do. In the same way, the decisions we make are based on predictions that were only supported by patterns, not principles.</p>
+<p>In practice, ground truths to improve RoBERTa would be realized by client outcomes, manual review or business results. This would come after the client has received the report of keyword/entities that were labeled by RoBERTa. WigglNet would then work with the client to monitor outcomes based on the decisions made by RoBERTa - confirming or denying the labels produced by the model.</p>
+<p>Therefore, the question being asked in this business problem must be: <i><b>"Can we validate the sentiment labels produced by RoBERTa for a specific product market niche?"</b></i> Doing so would give extra reassurance to the initial pattern-based report provided to clients - improving perceived trustworthiness.</p>
 </div>
 </div>
 </div>
@@ -7903,13 +7903,14 @@ Spring 2026</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a2d477a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=157b00ee">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>MariaDB is the database system used for development purposes.</p>
+<p>A static CSV file contains the results of a query that pulls back combined article, keyword, entity and sentiment information by joining to four other tables on either ARTICLE_ID or KEYWORD_ID. Because this is time series data, the query can ignore all rows where PUBLISHED_DATE is NULL.</p>
+<p>It includes the CONFIDENCE field from ARTICLE_ENTITY_SENTIMENT, which indicates the RoBERTa model's confidence level (0-1) in the sentiment classification for each entity.</p>
 </div>
 </div>
 </div>
@@ -7918,124 +7919,14 @@ Spring 2026</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Imports and Processing</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'/home/nunya/Documents/GitHub/wigglnet/'</span><span class="p">)</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">mariadb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">app.shared_utils.db_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db_config</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'keywords.csv'</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7d9ed577">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Get database configuration from .env file</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">get_db_config</span><span class="p">()</span>
-
-<span class="c1"># Connect to DB</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">conn</span> <span class="o">=</span> <span class="n">mariadb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-        <span class="n">host</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'host'</span><span class="p">],</span>
-        <span class="n">user</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'user'</span><span class="p">],</span>
-        <span class="n">password</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'password'</span><span class="p">],</span>
-        <span class="n">database</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'database'</span><span class="p">],</span>
-        <span class="n">port</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">'port'</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Successfully connected to MariaDB database"</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">mariadb</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error connecting to MariaDB Platform: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># Get the cursor</span>
-<span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Successfully connected to MariaDB database
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c9ebd402">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This SQL query is pulling back combined article, keyword, entity and sentiment information by joining to four other tables on either ARTICLE_ID or KEYWORD_ID. Using multiple tables with a JOIN, an overview of the joined insight data is stored in a dataframe. Because this is time series data, the query can ignore all rows where PUBLISHED_DATE is NULL.</p>
-<p>It includes the CONFIDENCE field from ARTICLE_ENTITY_SENTIMENT, which indicates the RoBERTa model's confidence level (0-1) in the sentiment classification for each entity.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c5627619">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># SQL Query to retrieve article data with keywords, entities, and sentiment</span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">"""</span>
-<span class="s2">    SELECT</span>
-<span class="s2">        a.ARTICLE_ID,</span>
-<span class="s2">        a.TITLE,</span>
-<span class="s2">        a.PUBLISHED_DATE,</span>
-<span class="s2">        k.KEYWORD_TEXT,</span>
-<span class="s2">        e.ENTITY_TEXT,</span>
-<span class="s2">        e.ENTITY_TYPE,</span>
-<span class="s2">        aes.SENTIMENT,</span>
-<span class="s2">        aes.CONFIDENCE,</span>
-<span class="s2">        aes.MENTIONS</span>
-<span class="s2">    FROM WEBDATA.ARTICLES a</span>
-<span class="s2">    LEFT JOIN WEBDATA.ARTICLE_KEYWORDS ak ON a.ARTICLE_ID = ak.ARTICLE_ID</span>
-<span class="s2">    LEFT JOIN WEBDATA.KEYWORDS k ON ak.KEYWORD_ID = k.KEYWORD_ID</span>
-<span class="s2">    LEFT JOIN WEBDATA.ARTICLE_ENTITY_SENTIMENT aes ON a.ARTICLE_ID = aes.ARTICLE_ID</span>
-<span class="s2">    LEFT JOIN WEBDATA.ENTITIES e ON aes.ENTITY_ID = e.ENTITY_ID</span>
-<span class="s2">    WHERE PUBLISHED_DATE IS NOT NULL</span>
-<span class="s2">     -- AND published_date BETWEEN CURRENT_DATE - INTERVAL 1 YEAR AND CURRENT_DATE;</span>
-<span class="s2">"""</span>
-
-<span class="c1"># Execute query and load results into a DataFrame</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/tmp/ipykernel_51697/3352011010.py:23: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn)
-</pre>
 </div>
 </div>
 </div>
@@ -8045,7 +7936,7 @@ Spring 2026</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Display basic info about the dataset</span>
@@ -8093,7 +7984,7 @@ Column names: ['ARTICLE_ID', 'TITLE', 'PUBLISHED_DATE', 'KEYWORD_TEXT', 'ENTITY_
 <ul>
 <li>ENTITY_TYPE</li>
 <li>KEYWORD_TEXT</li>
-<li>ENITITY_TEXT</li>
+<li>ENTITY_TEXT</li>
 <li>TITLE</li>
 <li>PUBLISHED_DATE</li>
 <li>SOURCE</li>
@@ -8128,7 +8019,7 @@ Column names: ['ARTICLE_ID', 'TITLE', 'PUBLISHED_DATE', 'KEYWORD_TEXT', 'ENTITY_
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">total_articles</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"ARTICLE_ID"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
@@ -8158,7 +8049,7 @@ Column names: ['ARTICLE_ID', 'TITLE', 'PUBLISHED_DATE', 'KEYWORD_TEXT', 'ENTITY_
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><b>If there are only 132 articles, why are there 19,637 rows?<b></b></b></p>
+<p><b>If there are only 132 articles, why are there 19,637 rows?</b></p>
 </div>
 </div>
 </div>
@@ -8169,7 +8060,7 @@ Column names: ['ARTICLE_ID', 'TITLE', 'PUBLISHED_DATE', 'KEYWORD_TEXT', 'ENTITY_
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This dataset includes information on metadata about keywords and enitities in an article, not just a list of each article. Every keyword has an entity text, type, sentiment and number of mentions.</p>
+<p>This dataset includes information on metadata about keywords and entities in an article, not just a list of each article. Every keyword has an entity text, type, sentiment, and number of mentions.</p>
 </div>
 </div>
 </div>
@@ -8189,7 +8080,7 @@ Column names: ['ARTICLE_ID', 'TITLE', 'PUBLISHED_DATE', 'KEYWORD_TEXT', 'ENTITY_
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">max_pub</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"PUBLISHED_DATE"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
@@ -8209,8 +8100,8 @@ Column names: ['ARTICLE_ID', 'TITLE', 'PUBLISHED_DATE', 'KEYWORD_TEXT', 'ENTITY_
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Max published date is 2026-04-10 00:00:00
-Min published date is 2022-04-01 00:00:00
+<pre>Max published date is 2026-04-10
+Min published date is 2022-04-01
 </pre>
 </div>
 </div>
@@ -8244,7 +8135,7 @@ Min published date is 2022-04-01 00:00:00
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Import visualization libraries</span>
@@ -8281,7 +8172,7 @@ Min published date is 2022-04-01 00:00:00
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">entity_sentiment</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'ENTITY_TEXT'</span><span class="p">,</span> <span class="s1">'SENTIMENT'</span><span class="p">])[</span><span class="s1">'MENTIONS'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -8319,7 +8210,7 @@ Min published date is 2022-04-01 00:00:00
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Get negative mention counts for these entities</span>
@@ -8337,7 +8228,7 @@ Min published date is 2022-04-01 00:00:00
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># sort by negative mentions (descending) and get top 10</span>
@@ -8368,7 +8259,7 @@ Min published date is 2022-04-01 00:00:00
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Pivot the data so sentiments become columns (same logic as first viz)</span>
@@ -8391,7 +8282,7 @@ Min published date is 2022-04-01 00:00:00
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># create stacked bar chart (same visualization logic as first chart)</span>
@@ -8462,7 +8353,7 @@ Note: Entities are ordered left-to-right by negative mention count (highest firs
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This graph brings it all together; on the farthest left side should be the entities with the highest (if not 100%) negative seniment, decreasing to the left, where there are entities with more neutral and/or positive sentiment to the right. A client might use this graph to NOT ONLY determine out of all entities, which ones to avoid the most, but also what entities have the highest negative sentiment, while still having the <i>least bit</i> of positive (or neutral) sentiment.</p>
+<p>This graph brings it all together; on the farthest left side should be the entities with the highest (if not 100%) negative sentiment, decreasing to the right, where there are entities with more neutral and/or positive sentiment to the right. A client might use this graph to NOT ONLY determine out of all entities, which ones to avoid the most, but also what entities have the highest negative sentiment, while still having the <i>least bit</i> of positive (or neutral) sentiment.</p>
 </div>
 </div>
 </div>
@@ -8505,7 +8396,7 @@ Note: Entities are ordered left-to-right by negative mention count (highest firs
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
@@ -8566,7 +8457,7 @@ Note: Entities are ordered left-to-right by negative mention count (highest firs
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_scatter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mentions_col</span><span class="p">,</span> <span class="n">confidence_col</span><span class="p">,</span> 
@@ -8648,7 +8539,7 @@ Note: Entities are ordered left-to-right by negative mention count (highest firs
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Filter for negative sentiment only</span>
@@ -8682,7 +8573,7 @@ Average confidence: 0.674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Aggregate negative entities: sum mentions and average confidence</span>
@@ -8715,7 +8606,7 @@ Average confidence: 0.674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Use the reusable function for negative entities bar chart</span>
@@ -8738,7 +8629,7 @@ Average confidence: 0.674
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/tmp/ipykernel_51697/2958685450.py:16: MatplotlibDeprecationWarning: The get_cmap function was deprecated in Matplotlib 3.7 and will be removed in 3.11. Use ``matplotlib.colormaps[name]`` or ``matplotlib.colormaps.get_cmap()`` or ``pyplot.get_cmap()`` instead.
+<pre>/tmp/ipykernel_71345/2958685450.py:16: MatplotlibDeprecationWarning: The get_cmap function was deprecated in Matplotlib 3.7 and will be removed in 3.11. Use ``matplotlib.colormaps[name]`` or ``matplotlib.colormaps.get_cmap()`` or ``pyplot.get_cmap()`` instead.
   cmap = cm.get_cmap(color_map) # call in color map
 </pre>
 </div>
@@ -8767,7 +8658,7 @@ Average confidence: 0.674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Use the reusable function for negative entities scatter plot</span>
@@ -8804,12 +8695,12 @@ Average confidence: 0.674
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>As mentioned before, entities on the farthest right side of the scatter plot have higher mentions, but those in the upper porton of the right side have high confidence scores.</p>
-<p>These are what the difference confidence thresholds mean.</p>
-<p>(&gt;0.085) - the RoBERTa model is very clean about the sentiment classification<br/>
+<p>As mentioned before, entities on the farthest right side of the scatter plot have higher mentions, but those in the upper portion of the right side have high confidence scores.</p>
+<p>These are what the different confidence thresholds mean.</p>
+<p>(&gt;0.85) - the RoBERTa model is very certain about the sentiment classification<br/>
 (0.70-0.85) - the model is moderately certain, which is typical for clear negative language<br/>
 (&lt;0.70) - low confidence: uncertain classification. May indicate ambiguous language or misclassification</p>
-<p>For WigglNet clients, high confidence, high volume entities will show up as darker, taller bars whic indicate the most reliable negative signals. E-commerce sellers should investigate these entities thoroughly before associating with them.</p>
+<p>For WigglNet clients, high confidence, high volume entities will show up as darker, taller bars which indicate the most reliable negative signals. E-commerce sellers should investigate these entities thoroughly before associating with them.</p>
 <p>This two-dimensional analysis helps clients distinguish between solid negative signals and potentially uncertain classifications, leading to better-informed business decisions.</p>
 </div>
 </div>
@@ -8832,7 +8723,7 @@ Average confidence: 0.674
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The best way for a seller or manufacturer to understand what's happening in a market is to look directly at what is being talked about. Reading articles one by one and making judgements for yourself whether an entity is positive or negative is an inefficient approach compared to the classification models WigglNet runs to identify the sentiment of keywords and entities accross hundreds of articles. This is not to say though, that manually applying sentiment labels is useless. In order to develop "ground-truths" about the clients particular needs for the market, there must be human-made truths that the model can compare it's predictions to. From there the model can improve it's predictions based on the outcomes, results and KPIs of the client's analytics.</p>
+<p>The best way for a seller or manufacturer to understand what's happening in a market is to look directly at what is being talked about. Reading articles one by one and making judgements for yourself whether an entity is positive or negative is an inefficient approach compared to the classification models WigglNet runs to identify the sentiment of keywords and entities across hundreds of articles. This is not to say though, that manually applying sentiment labels is useless. In order to develop "ground-truths" about the clients particular needs for the market, there must be human-made truths that the model can compare its predictions to. From there the model can improve its predictions based on the outcomes, results and KPIs of the client's analytics.</p>
 </div>
 </div>
 </div>
@@ -8843,7 +8734,7 @@ Average confidence: 0.674
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This notebook reviewed the a process of validating results produced by RoBERTa to verify the effectivness of the model's labelling for a particular target market. It was visualized in three stacked bar charts showing the different ways clients could use this data to make decisions about certain topics between positive and negative sentiment.</p>
+<p>This notebook reviewed a process of validating results produced by RoBERTa to verify the effectiveness of the model's labelling for a particular target market. It was visualized in three stacked bar charts showing the different ways clients could use this data to make decisions about certain topics between positive and negative sentiment.</p>
 </div>
 </div>
 </div>
@@ -8865,7 +8756,7 @@ Average confidence: 0.674
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Next in the pipline is preparing the data for machine learning model building and evaluation. In the following sections the data will undergo cleaning, extraction, selection, transformation and feature engineering.</p>
+<p>Next in the pipeline is preparing the data for machine learning model building and evaluation. In the following sections the data will undergo cleaning, extraction, selection, transformation, and feature engineering.</p>
 </div>
 </div>
 </div>
@@ -8885,7 +8776,7 @@ Average confidence: 0.674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"ARTICLE_ID"</span><span class="p">,</span> <span class="s2">"CONFIDENCE"</span><span class="p">])</span>
@@ -8901,7 +8792,7 @@ Average confidence: 0.674
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>For model development, the only columns needed to be dropped is the <code>ARTICLE_ID</code> and <code>CONFIDENCE</code> field. Article ID is set automatically by the program creating the data and Confidence is RoBERTa's confidence in the sentiment label it produced. Feeding this into a classifier validating the accuracy of the labels, the model will look extremely accurate but will be under false will look extremely accurate but will be under false pretenses, since the feature it's leaning on is derived from the very label it's trying to validate.</p>
+<p>For model development, the only columns needed to be dropped is the <code>ARTICLE_ID</code> and <code>CONFIDENCE</code> field. Article ID is set automatically by the program creating the data and Confidence is RoBERTa's confidence in the sentiment label it produced. Feeding this into a classifier validating the accuracy of the labels, the model will look extremely accurate but will be under false pretenses, since the feature it's leaning on is derived from the very label it's trying to validate.</p>
 </div>
 </div>
 </div>
@@ -8921,7 +8812,7 @@ Average confidence: 0.674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Sum the NaNs</span>
@@ -8936,7 +8827,7 @@ Average confidence: 0.674
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>TITLE             0
 PUBLISHED_DATE    0
@@ -8979,7 +8870,7 @@ dtype: int64</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>From the <code>PUBLISHED_DATE</code> column four features are be created:</p>
+<p>From the <code>PUBLISHED_DATE</code> column four features will be created:</p>
 <p><code>PUB_YEAR</code>: Year the article was published<br/>
 <code>PUB_MONTH</code>: Month the article was published<br/>
 <code>PUB_DOW</code>: Day of the week article was published<br/></p>
@@ -8991,7 +8882,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># converting to datetime if not already</span>
@@ -9025,7 +8916,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Imports and preprocessing</span>
@@ -9054,7 +8945,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># pick a representative spread of values from your data</span>
@@ -9152,7 +9043,7 @@ dtype: int64</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><code>ENTITY_TEXT</code> and <code>KEYWORD_TEXT</code> cannot be read by a machine learing model as the text themselves. A method called TargetEncoding must be applied to convert them to a numeric value that represents how closely the keyword is to a positive/negative. A value closer to 0 means the entity is usually tagged negative, while a vlaue near 2 means it's usualy tagged positive.</p>
+<p><code>ENTITY_TEXT</code> and <code>KEYWORD_TEXT</code> cannot be read by a machine learning model as the text themselves. A method called TargetEncoding must be applied to convert them to a numeric value that represents how closely the keyword is to a positive/negative. A value closer to 0 means the entity is usually tagged negative, while a value near 2 means it's usually tagged positive.</p>
 </div>
 </div>
 </div>
@@ -9161,7 +9052,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">encoder</span> <span class="o">=</span> <span class="n">ce</span><span class="o">.</span><span class="n">TargetEncoder</span><span class="p">(</span><span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s1">'ENTITY_TEXT'</span><span class="p">,</span> <span class="s1">'KEYWORD_TEXT'</span><span class="p">])</span>
@@ -9213,7 +9104,7 @@ max        2.000000      1.579529
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Next, TfdfVectorizer is used to encode the TITLE feature. Stop words will drop common words like "the", "of", "is", "and" that appear in every title and carry no signal.</p>
+<p>Next, TfidfVectorizer is used to encode the TITLE feature. Stop words will drop common words like "the", "of", "is", "and" that appear in every title and carry no signal.</p>
 </div>
 </div>
 </div>
@@ -9222,7 +9113,7 @@ max        2.000000      1.579529
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span>
@@ -9289,7 +9180,7 @@ Sample title features: ['title_2026', 'title_2026 color', 'title_45', 'title_aly
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
@@ -9317,7 +9208,7 @@ Sample title features: ['title_2026', 'title_2026 color', 'title_45', 'title_aly
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>One how encoding will produce "dummy variables", or placeholders for catrgoeical information. They flip 1 or 0 dpeending on which category a row belongs to. It is a "dummy" variable because it doesn't measure a quantity, but indicates membership in a group.</p>
+<p>One hot encoding will produce "dummy variables", or placeholders for categorical information. They flip 1 or 0 depending on which category a row belongs to. It is a "dummy" variable because it doesn't measure a quantity, but indicates membership in a group.</p>
 </div>
 </div>
 </div>
@@ -9326,7 +9217,7 @@ Sample title features: ['title_2026', 'title_2026 color', 'title_45', 'title_aly
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">entity_type_dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'ENTITY_TYPE'</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">'etype'</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -9359,6 +9250,58 @@ Sample title features: ['title_2026', 'title_2026 color', 'title_45', 'title_aly
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85ef3d4d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Reviewing the new dataframe, each predictor is now in a numeric form that can be processed by a model.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=41f0f34d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Ready-for-Modeling">Ready for Modeling<a class="anchor-link" href="#Ready-for-Modeling">¶</a></h4><p>All feature columns are now numeric and encoded. <code>SENTIMENT</code> (the target) will be separated before training; every remaining column is in a format the model can consume directly.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=eaabe40d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[36]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>float64    102
+int64        6
+int32        3
+str          1
+Name: count, dtype: int64</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ac082e2d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9376,8 +9319,8 @@ Sample title features: ['title_2026', 'title_2026 color', 'title_45', 'title_aly
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>In Milestone 2, each categorical field was converted to a numeric field or set of fields that represented the field it was derived from. The benefit of data that can be understood by humans is that it's easily communicacable. Teams speaking the same language can understand insights about the data simply by reading and passing along. ML models, however, cannot understand data in our language.</p>
-<p>In cases like the Mentions transformtion, log was needed to redistribute the spacing between values so the model could interpret them on a proportional scale rather than being dominated by a few outliers. For the text and keywords, Target Encoding was applied because one-hot encoding 893 entities and 655 keywords would have created over 1,500 sparse columns. Instead, each category is replaced with a single float representing its average sentiment, compressing the signal into one column per field.</p>
+<p>In Milestone 2, each categorical field was converted to a numeric field or set of fields that represented the field it was derived from. The benefit of data that can be understood by humans is that it's easily communicable. Teams speaking the same language can understand insights about the data simply by reading and passing along. ML models, however, cannot understand data in our language.</p>
+<p>In cases like the Mentions transformation, log was needed to redistribute the spacing between values so the model could interpret them on a proportional scale rather than being dominated by a few outliers. For the text and keywords, Target Encoding was applied because one-hot encoding 893 entities and 655 keywords would have created over 1,500 sparse columns. Instead, each category is replaced with a single float representing its average sentiment, compressing the signal into one column per field.</p>
 <p>Other data preparation steps included feature engineering on PUBLISHED_DATE to extract year, month, day-of-week, and days-since-publication; dropping ARTICLE_ID and CONFIDENCE (the former an auto-generated identifier with no predictive value, the latter a source of target leakage); one-hot encoding ENTITY_TYPE into five dummy variables; and TF-IDF vectorizing TITLE into 100 weighted term features. A check for missing values returned none, owing to the clean upstream pipeline that populated the source database.</p>
 </div>
 </div>
