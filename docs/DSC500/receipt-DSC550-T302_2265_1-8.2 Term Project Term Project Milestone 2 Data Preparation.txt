@@ -1,8 +1,0 @@
-Your submission was successful!
-Course: DSC550-T302_2265_1, DSC550-T302 Data Mining (2265-1)
-Assessment: 8.2 Term Project: Term Project Milestone 2: Data Preparation
-
-Submission date: 5/11/26, 12:51 AM (EDT)
-Submission size: 816.4 KB
-Submitter: Jeremy Barton
-Confirmation number: 025120c25e564e809f4059a9518aa654
